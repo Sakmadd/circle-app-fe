@@ -5,7 +5,7 @@ import { SideImage1 } from '../components/elements/sideImage1';
 export function LoginPage() {
   return (
     <Box
-      marginTop={'5%'}
+      height={'100vh'}
       width={'full'}
       display={'flex'}
       flexDirection={'row'}

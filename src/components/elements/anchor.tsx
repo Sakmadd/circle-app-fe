@@ -5,18 +5,29 @@ import React from 'react';
 export function Anchor({
   href,
   children,
+  thin,
 }: {
   href: string;
+  thin?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <ChakraLink
       as={ReactLink}
       to={href}
-      fontSize="sm"
-      fontWeight="bold"
-      textAlign="center"
-      color="#F3C623"
+      {...(thin
+        ? {
+            fontSize: 'sm',
+            fontWeight: 'thin',
+            textAlign: 'center',
+            color: '#000',
+          }
+        : {
+            fontSize: 'sm',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            color: '#F3C623',
+          })}
     >
       {children}
     </ChakraLink>

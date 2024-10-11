@@ -1,10 +1,9 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { Inputs } from '../../elements/inputs';
-import { LogOptions } from '../logOptions/logOptions';
 import { Anchor } from '../../elements/anchor';
 import { LogoText } from '../../elements/logoText';
 
-export function LoginInputForms() {
+export function ForgotInputForms() {
   return (
     <>
       <Box
@@ -22,18 +21,11 @@ export function LoginInputForms() {
           gap={3}
         >
           <LogoText />
-          <Inputs
-            props={[
-              { name: 'emailOrUsername', placeholder: 'Email/Username' },
-              { name: 'password', placeholder: 'Password' },
-            ]}
-          ></Inputs>
-
-          <Button colorScheme="blackAlpha">login</Button>
-          <LogOptions></LogOptions>
-          <Anchor thin={true} href="/forgot">
-            Forgot Password ?
-          </Anchor>
+          <Text fontSize={'md'} textAlign={'center'}>
+            Forgot Your Password?
+          </Text>
+          <Inputs props={[{ name: 'email', placeholder: 'Email' }]}></Inputs>
+          <Button colorScheme="blackAlpha">Send Me Instructions</Button>
         </Box>
 
         <Box
@@ -45,8 +37,8 @@ export function LoginInputForms() {
           flexDirection={'row'}
           gap={1}
         >
-          <Text fontSize={'sm'}>Don't have an account yet?</Text>
-          <Anchor href="/register">Register</Anchor>
+          <Text fontSize={'sm'}>Try another account?</Text>
+          <Anchor href="/login">Login</Anchor>
         </Box>
       </Box>
     </>

@@ -1,15 +1,19 @@
 import { Input } from '@chakra-ui/react';
 
-export function Inputs({ placeholder }: { placeholder: string[] }) {
+export function Inputs({
+  props,
+}: {
+  props: { name: string; placeholder: string }[];
+}) {
   return (
     <>
-      {placeholder.map((single) => (
+      {props.map((single) => (
         <Input
-          key={single}
-          name={single}
+          key={single.name}
+          name={single.name}
           focusBorderColor="black"
-          placeholder={single}
-          size={'md'}
+          placeholder={single.placeholder}
+          size="md"
         />
       ))}
     </>

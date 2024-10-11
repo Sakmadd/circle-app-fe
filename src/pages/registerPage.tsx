@@ -6,7 +6,7 @@ export function RegisterPage() {
   return (
     <>
       <Box
-        marginTop={'5%'}
+        height={'100vh'}
         width={'full'}
         display={'flex'}
         flexDirection={'row'}

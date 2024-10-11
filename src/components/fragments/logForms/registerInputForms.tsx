@@ -22,7 +22,13 @@ export function RegisterInputForms() {
           gap={3}
         >
           <LogoText />
-          <Inputs placeholder={['Username', 'Email', 'Password']}></Inputs>
+          <Inputs
+            props={[
+              { name: 'username', placeholder: 'Username' },
+              { name: 'email', placeholder: 'Email' },
+              { name: 'password', placeholder: 'Password' },
+            ]}
+          ></Inputs>
           <Button colorScheme="blackAlpha">Register</Button>
 
           <LogOptions></LogOptions>
@@ -38,7 +44,7 @@ export function RegisterInputForms() {
           gap={1}
         >
           <Text fontSize={'sm'}>Already have an account?</Text>
-          <Anchor href="#">Login</Anchor>
+          <Anchor href="/login">Login</Anchor>
         </Box>
       </Box>
     </>
