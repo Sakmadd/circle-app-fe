@@ -17,9 +17,9 @@ export const circleTheme = extendTheme({
     circle: {
       backdrop: '#171717',
       backdropAccent: '#1c1c1c',
-      font: '#dedede',
+      font: '#939185',
       dark: '#505050',
-      darker: '#1f1f1f',
+      darker: '#F4F6FF',
       red: '#D71913',
       accent: '#14AE5C',
       darkAccent: '#12A054',

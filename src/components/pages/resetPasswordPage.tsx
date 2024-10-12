@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
-import { LoginInputForms } from '../components/fragments/logForms/loginInputForms';
-import { SideImage1 } from '../components/elements/sideImage1';
+import { SideImage2 } from '../elements/images/sideImage2';
+import { ResetInputForms } from '../fragments/forgotResetForms/resetInputForms';
 
-export function LoginPage() {
+export function ResetPage() {
   return (
     <Box
       height={'100vh'}
@@ -13,8 +13,8 @@ export function LoginPage() {
       justifyContent={'center'}
       gap={3}
     >
-      <SideImage1 />
-      <LoginInputForms></LoginInputForms>
+      <SideImage2 />
+      <ResetInputForms />
     </Box>
   );
 }

@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
-import { SideImage2 } from '../components/elements/sideImage2';
-import { ForgotInputForms } from '../components/fragments/forgotResetForms/forgotInputForms';
+import { SideImage2 } from '../elements/images/sideImage2';
+import { ForgotInputForms } from '../fragments/forgotResetForms/forgotInputForms';
 
 export function ForgotPage() {
   return (

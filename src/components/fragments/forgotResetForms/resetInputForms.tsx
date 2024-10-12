@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { Inputs } from '../../elements/inputs';
-import { Anchor } from '../../elements/anchor';
+import { Anchor } from '../../elements/links/anchor';
 import { LogoText } from '../../elements/logoText';
 
 export function ResetInputForms() {

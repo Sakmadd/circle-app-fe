@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
-import { RegisterInputForms } from '../components/fragments/logForms/registerInputForms';
-import { SideImage1 } from '../components/elements/sideImage1';
+import { RegisterInputForms } from '../fragments/logForms/registerInputForms';
+import { SideImage1 } from '../elements/images/sideImage1';
 
 export function RegisterPage() {
   return (
