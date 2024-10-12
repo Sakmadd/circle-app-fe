@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface MainBarProps {
@@ -6,12 +6,15 @@ interface MainBarProps {
 }
 
 export function FeedsBar({ children }: MainBarProps) {
+  const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
   return (
     <Box
       as={'section'}
       border={'2px'}
-      borderColor={'circle.darker'}
+      borderTop={'0px'}
+      borderColor={borderColor}
       minHeight={'500vh'}
+      width={'full'}
     >
       {children}
     </Box>

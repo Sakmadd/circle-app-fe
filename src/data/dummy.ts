@@ -1,0 +1,42 @@
+export const dummyAccounts = [
+  {
+    id: 1,
+    username: 'johndoe',
+    name: 'John Doe',
+    bio: 'Web developer and coffee enthusiast.',
+    avatar: 'https://example.com/avatar1.jpg',
+    isFollowed: false,
+  },
+  {
+    id: 2,
+    username: 'janedoe',
+    name: 'Jane Doe',
+    bio: 'UI/UX designer. Love minimalism.',
+    avatar: 'https://example.com/avatar2.jpg',
+    isFollowed: true,
+  },
+  {
+    id: 3,
+    username: 'michael_smith',
+    name: 'Michael Smith',
+    bio: 'Full-stack developer with a passion for open-source.',
+    avatar: 'https://example.com/avatar3.jpg',
+    isFollowed: false,
+  },
+  {
+    id: 4,
+    username: 'emilyclark',
+    name: 'Emily Clark',
+    bio: 'Photographer and world traveler.',
+    avatar: 'https://example.com/avatar4.jpg',
+    isFollowed: true,
+  },
+  {
+    id: 5,
+    username: 'danbrown',
+    name: 'Dan Brown',
+    bio: 'Blockchain enthusiast and tech speaker.',
+    avatar: 'https://example.com/avatar5.jpg',
+    isFollowed: false,
+  },
+];

@@ -31,7 +31,7 @@ export function LoginInputForms() {
 
           <Button colorScheme="blackAlpha">login</Button>
           <LogOptions></LogOptions>
-          <Anchor thin={true} href="/forgot">
+          <Anchor thin={true} color="#000" href="/help/forgot">
             Forgot Password ?
           </Anchor>
         </Box>

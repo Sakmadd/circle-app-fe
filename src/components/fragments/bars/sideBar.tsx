@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface SideBarProps {
@@ -7,8 +7,15 @@ interface SideBarProps {
 
 export function SideBar({ children }: SideBarProps): JSX.Element {
   return (
-    <Box as="aside" pos={'sticky'} top={0} py={'2rem'}>
+    <Flex
+      as="aside"
+      pos={'sticky'}
+      top={0}
+      paddingY={'2rem'}
+      gap={'1rem'}
+      flexDirection={'column'}
+    >
       {children}
-    </Box>
+    </Flex>
   );
 }

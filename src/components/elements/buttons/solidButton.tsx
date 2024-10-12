@@ -1,14 +1,20 @@
-import { Button } from '@chakra-ui/react';
+import { Button, useColorModeValue } from '@chakra-ui/react';
+import { transparentHover } from '../../../styles/style';
 
 interface SolidButtonProps {
   onClick?: () => void;
   text: string;
-  py?: string;
 }
 
 function SolidButton({ onClick, text }: SolidButtonProps) {
+  const fontColor = useColorModeValue('white', 'black');
   return (
-    <Button onClick={onClick} colorScheme="yellow" color={'white'}>
+    <Button
+      onClick={onClick}
+      backgroundColor={'accent.base'}
+      _hover={transparentHover}
+      color={fontColor}
+    >
       {text}
     </Button>
   );

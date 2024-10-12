@@ -6,7 +6,11 @@ export function Anchor({
   href,
   children,
   thin,
+  align,
+  color,
 }: {
+  color?: string;
+  align?: string;
   href: string;
   thin?: boolean;
   children: React.ReactNode;
@@ -15,18 +19,16 @@ export function Anchor({
     <ChakraLink
       as={ReactLink}
       to={href}
+      color={color === undefined ? '#F3C623' : color}
+      textAlign={align === 'left' ? 'left' : 'center'}
       {...(thin
         ? {
             fontSize: 'sm',
             fontWeight: 'thin',
-            textAlign: 'center',
-            color: '#000',
           }
         : {
             fontSize: 'sm',
             fontWeight: 'bold',
-            textAlign: 'center',
-            color: '#F3C623',
           })}
     >
       {children}

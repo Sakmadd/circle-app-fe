@@ -1,24 +1,32 @@
 import { Route, Routes } from 'react-router-dom';
-import { RegisterPage } from './components/pages/registerPage';
-import { LoginPage } from './components/pages/loginPage';
 import { ForgotPage } from './components/pages/forgotPasswordPage';
+import HomePage from './components/pages/homePage';
+import { LoginPage } from './components/pages/loginPage';
+import { RegisterPage } from './components/pages/registerPage';
 import { ResetPage } from './components/pages/resetPasswordPage';
 import { CircleLayout } from './layouts/circleLayout';
-import HomePage from './components/pages/homePage';
+const loggedUser = true;
 
 function App() {
+  if (!loggedUser) {
+    return (
+      <div className="app">
+        <Routes>
+          <Route path="/*" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/help/forgot" element={<ForgotPage />} />
+          <Route path="/help/reset" element={<ResetPage />} />
+        </Routes>
+      </div>
+    );
+  }
   return (
     <>
       <Routes>
         <Route path="/" element={<CircleLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="forgot" element={<ForgotPage />} />
-          <Route path="reset" element={<ResetPage />} />
         </Route>
         <Route path="*" element={<div>404</div>} />
-        <Route element={<div>404</div>} />
       </Routes>
     </>
   );

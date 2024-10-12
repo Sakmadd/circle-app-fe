@@ -1,7 +1,6 @@
-import { Text, Flex } from '@chakra-ui/react';
+import { Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import { fontSizing } from '../../../styles/style';
 import GhostButton from '../../elements/buttons/ghostButton';
 
 interface NavigationItemProps {
@@ -11,23 +10,23 @@ interface NavigationItemProps {
 }
 
 function NavigationItem({ icon, text, onLogout }: NavigationItemProps) {
+  const fontColor = useColorModeValue('day.text', 'night.text');
   return (
     <GhostButton onClick={onLogout}>
       <Flex
-        gap={'1rem'}
+        gap={'10px'}
         alignItems={'center'}
-        fontSize={fontSizing.bigger}
-        color={'circle.font'}
+        fontSize={'3xl'}
+        color={fontColor}
       >
         {icon}
         <Text
+          fontSize={'sm'}
           as={'h1'}
-          fontSize={fontSizing.big}
           fontWeight={'600'}
           display={'flex'}
           alignItems={'center'}
-          gap={'1rem'}
-          color={'circle.font'}
+          color={fontColor}
         >
           {text}
         </Text>

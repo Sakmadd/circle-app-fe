@@ -14,28 +14,31 @@ export const circleTheme = extendTheme({
     body: `'PlusJakartaSans', sans-serif`,
   },
   colors: {
-    circle: {
-      backdrop: '#171717',
-      backdropAccent: '#1c1c1c',
-      font: '#939185',
-      dark: '#505050',
-      darker: '#F4F6FF',
-      red: '#D71913',
-      accent: '#14AE5C',
-      darkAccent: '#12A054',
-      error: '#cc0000',
-      green: '#006e45',
+    accent: {
+      base: '#F3C623',
     },
-  },
-  styles: {
-    global: {
-      body: {
-        color: '#10375C',
-        bg: 'white',
-        fontSize: '25.5px',
-      },
+    day: {
+      base: '#fff',
+      baseDarker: '#F5F5F2',
+      text: '#939185',
+    },
+    night: {
+      base: '#1d1d1d',
+      baseDarker: '#262626',
+      line: '#363535',
     },
   },
 });
 
 export default circleTheme;
+
+// backdrop: '#F5F5F7',
+// backdropAccent: '#1c1c1c',
+// font: '#939185',
+// dark: '#505050',
+// darker: '#F4F6FF',
+// red: '#D71913',
+// accent: '#F3C623',
+// darkAccent: '#12A054',
+// error: '#cc0000',
+// green: '#006e45',
