@@ -3,7 +3,6 @@ import { Box, Button, Image, Text } from '@chakra-ui/react';
 export function LogOptions() {
   return (
     <>
-      {' '}
       <Box bg={'white'} display={'flex'} flexDirection={'column'} gap={3}>
         <Box display={'flex'} gap={5} justifyContent={'center'}>
           <Box

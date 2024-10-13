@@ -5,22 +5,23 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { MdDarkMode, MdLightMode } from 'react-icons/md';
-import HollowButton from '../../elements/buttons/hollowButton';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { ModeButton } from '../../elements/buttons/modeButton';
+import { ProfileButton } from '../../elements/buttons/profileButton';
 
-export function TopBar() {
+export function TopBar({
+  toggleMenu,
+  togglePreferences,
+}: {
+  toggleMenu: () => void;
+  togglePreferences: () => void;
+}) {
   const bgColor = useColorModeValue('day.base', 'night.base');
   const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
-  const { colorMode, toggleColorMode } = useColorMode();
   const fontColor = useColorModeValue('day.text', 'night.text');
-  function toggleMenu() {
-    alert('toggle menu');
-  }
 
   return (
     <>
@@ -44,10 +45,10 @@ export function TopBar() {
               paddingTop={{ base: '0px', lg: '5px' }}
               color={fontColor}
               margin={'auto'}
-              fontSize={'3xl'}
+              fontSize={'2xl'}
               paddingRight={'10px'}
             >
-              <GiHamburgerMenu onClick={toggleMenu} />
+              <RxHamburgerMenu onClick={toggleMenu} />
             </Box>
             <Image
               src="/src/assets/circle-logo.svg"
@@ -59,19 +60,27 @@ export function TopBar() {
               display={{ base: 'none', lg: 'block' }}
             ></Image>
           </Flex>
-          <InputGroup maxWidth={'500px'}>
+          <InputGroup maxWidth={'500px'} margin={'auto'}>
             <InputLeftElement pointerEvents="none">
               <FiSearch color={bgColor} />
             </InputLeftElement>
             <Input
+              fontSize={{ base: '10px', md: '14px' }}
               type="tel"
               placeholder="Search"
               focusBorderColor="accent.base"
             />
           </InputGroup>
-          <HollowButton onClick={toggleColorMode}>
-            {colorMode === 'light' ? <MdLightMode /> : <MdDarkMode />}
-          </HollowButton>
+          <Flex gap={'10px'}>
+            <Box
+              display={{ base: 'block', lg: 'none' }}
+              margin={'auto'}
+              onClick={togglePreferences}
+            >
+              <ProfileButton />
+            </Box>
+            <ModeButton />
+          </Flex>
         </Flex>
       </Box>
     </>

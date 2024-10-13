@@ -49,8 +49,13 @@ export function FeedPost({
         >
           Home
         </Text>
-        <Flex margin={'20px'}>
-          <Avatar src={''} marginRight={'20px'} />
+        <Flex margin={'20px'} alignItems={'center'}>
+          <Avatar
+            src={''}
+            marginRight={'20px'}
+            width={{ base: '2rem', md: '3rem' }}
+            height={{ base: '2rem', md: '3rem' }}
+          />
 
           <Flex alignItems={'center'} gap={'1rem'} width={'100%'}>
             <FeedInput placeholder={placeholder} name={'content'} />
@@ -70,11 +75,17 @@ export function FeedPost({
                 />
                 <label htmlFor={imagePreviewId}>
                   <Box color={fontColor}>
-                    <BiImageAdd fontSize={'2rem'} cursor={'pointer'} />
+                    <BiImageAdd fontSize={'1.5rem'} cursor={'pointer'} />
                   </Box>
                 </label>
               </FormControl>
-              <SolidButton text={buttonText ? buttonText : 'Post'} />
+              <Box>
+                <SolidButton
+                  fontSize={{ base: '10px', sm: '12px', md: 'md' }}
+                  padding={{ base: '1', sm: '3', md: '5' }}
+                  text={buttonText ? buttonText : 'Post'}
+                />
+              </Box>
             </Flex>
           </Flex>
         </Flex>

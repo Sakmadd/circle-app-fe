@@ -19,7 +19,7 @@ export function FeedInput(props: FeedInputProps) {
         width={'100%'}
         resize={'none'}
         placeholder={placeholder}
-        fontSize={{ base: 'sm', sm: 'md' }}
+        fontSize={{ base: 'sm', md: 'lg' }}
         _active={{ background: 'none', boxShadow: 'none' }}
         _focus={{ background: 'none', boxShadow: 'none' }}
         _placeholder={{ color: fontColor }}
