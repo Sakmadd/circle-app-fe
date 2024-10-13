@@ -5,7 +5,7 @@ interface MainBarProps {
   children: ReactNode;
 }
 
-export function FeedsBar({ children }: MainBarProps) {
+export function MainContent({ children }: MainBarProps) {
   const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
   return (
     <Box

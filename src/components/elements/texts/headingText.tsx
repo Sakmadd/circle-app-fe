@@ -12,7 +12,7 @@ function HeadingText({
   size = 'xl',
   children,
   mb = '0',
-  align = 'left',
+  align,
 }: HeadingTextProps) {
   return (
     <Heading

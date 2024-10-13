@@ -1,13 +1,14 @@
-import { Box } from '@chakra-ui/react';
-import { FeedsBar } from '../fragments/bars/feedsBar';
+import { MainContent } from '../fragments/bars/mainContent';
+import { FeedPost } from '../fragments/feeds/feedPost';
 
 function HomePage() {
   return (
-    <Box>
-      <FeedsBar>
-        <div></div>
-      </FeedsBar>
-    </Box>
+    <MainContent>
+      <FeedPost
+        placeholder={"What's on your mind?"}
+        imagePreviewId={'atHome'}
+      />
+    </MainContent>
   );
 }
 
