@@ -1,31 +1,17 @@
-import { Box, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
-import { useState } from 'react';
 import { TopBar } from '../components/fragments/bars/topBar';
-import { NavigationMobile } from '../components/fragments/mobile/navigationMobile';
-import { UserPreferencesMobile } from '../components/fragments/mobile/userPreferencesMobile';
 import { Navigation } from '../components/fragments/navigations/navigation';
 import { UserPreferences } from '../components/fragments/userPreferences/userPreferences';
+import { useCustomColorModeValues } from '../hooks/useCustomColorModeValues';
 
 export function CircleLayout() {
-  const bgColor = useColorModeValue('day.base', 'night.base');
-  const [showNavigation, setNavigation] = useState(false);
-  const [showPreferences, setPreferences] = useState(false);
-
-  function toggleMenu() {
-    setNavigation(!showNavigation);
-  }
-  function togglePreferences() {
-    setPreferences(!showPreferences);
-  }
-
+  const { baseColor } = useCustomColorModeValues();
   return (
     <>
-      <UserPreferencesMobile showPreferencesMobile={showPreferences} />
-      <NavigationMobile showNavigationMobile={showNavigation} />
-      <Box backgroundColor={bgColor}>
-        <TopBar togglePreferences={togglePreferences} toggleMenu={toggleMenu} />
+      <Box backgroundColor={baseColor}>
+        <TopBar />
 
         <Grid templateColumns={'repeat(24, 1fr)'}>
           <Navigation />

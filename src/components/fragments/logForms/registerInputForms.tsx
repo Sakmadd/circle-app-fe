@@ -3,8 +3,11 @@ import { Inputs } from '../../elements/inputs';
 import { Anchor } from '../../elements/links/anchor';
 import { LogOptions } from '../logOptions/logOptions';
 import { LogoText } from '../../elements/logoText';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 export function RegisterInputForms() {
+  const { baseColor, borderLineColor } = useCustomColorModeValues();
+
   return (
     <>
       <Box
@@ -15,8 +18,9 @@ export function RegisterInputForms() {
       >
         <Box
           padding={'10%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'column'}
           gap={3}
@@ -37,8 +41,9 @@ export function RegisterInputForms() {
         <Box
           justifyContent={'center'}
           padding={'5%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'row'}
           gap={1}

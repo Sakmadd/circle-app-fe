@@ -16,29 +16,23 @@ export const circleTheme = extendTheme({
   colors: {
     accent: {
       base: '#F3C623',
+      text: '#fff',
     },
     day: {
       base: '#fff',
       baseDarker: '#F5F5F2',
-      text: '#939185',
+      text: '#525131',
+      textLight: '#939185',
+      borderLineColor: '#F5F5F2',
     },
     night: {
-      base: '#1d1d1d',
-      baseDarker: '#262626',
-      line: '#363535',
+      base: '#262626 ',
+      baseDarker: '#1d1d1d',
+      text: '#fff',
+      textLight: '#939185',
+      borderLineColor: '#363535',
     },
   },
 });
 
 export default circleTheme;
-
-// backdrop: '#F5F5F7',
-// backdropAccent: '#1c1c1c',
-// font: '#939185',
-// dark: '#505050',
-// darker: '#F4F6FF',
-// red: '#D71913',
-// accent: '#F3C623',
-// darkAccent: '#12A054',
-// error: '#cc0000',
-// green: '#006e45',

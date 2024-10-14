@@ -1,16 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  Divider,
-  Flex,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Avatar, Box, Card, Divider, Flex } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
 import { FeedType } from '../../../../types/types';
 import GhostButton from '../../../elements/buttons/ghostButton';
-import { FeedHeader } from './feedHeader';
 import { FeedBody } from './feedBody';
 import { FeedFooter } from './feedFooter';
+import { FeedHeader } from './feedHeader';
 
 interface FeedItemProps {
   feed: FeedType;
@@ -35,18 +29,18 @@ export function FeedItem({
     badLabels,
     author,
   } = feed;
-  const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
-  const bgColor = useColorModeValue('day.base', 'night.base');
+  const { baseColor, borderLineColor } = useCustomColorModeValues();
 
   if (author) {
     return (
       <>
         <Box>
           <Card
-            bg={bgColor}
+            bg={baseColor}
             color={'circle.font'}
             p={'1rem'}
             borderRadius={'0px'}
+            shadow={'none'}
           >
             <Flex gap={'1rem'}>
               <GhostButton alignItems={'self-start'}>
@@ -83,7 +77,7 @@ export function FeedItem({
               </Flex>
             </Flex>
           </Card>
-          <Divider border={'1px'} borderColor={borderColor} />
+          <Divider border={'1px'} borderColor={borderLineColor} />
         </Box>
       </>
     );

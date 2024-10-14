@@ -1,5 +1,6 @@
-import { Button, useColorModeValue } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 interface HollowButtonProps {
   onClick?: () => void;
@@ -9,7 +10,8 @@ interface HollowButtonProps {
 }
 
 function HollowButton({ onClick, text, dark, children }: HollowButtonProps) {
-  const bdColor = useColorModeValue('day.baseDarker', 'night.line');
+  const { borderLineColor } = useCustomColorModeValues();
+
   if (text == 'Following') {
     return (
       <Button
@@ -17,7 +19,7 @@ function HollowButton({ onClick, text, dark, children }: HollowButtonProps) {
         variant={'outline'}
         borderRadius={'lg'}
         border={'2px'}
-        borderColor={bdColor}
+        borderColor={borderLineColor}
         fontSize={'xs'}
         color={dark ? 'circle.dark' : 'circle.font'}
         opacity={'.4'}
@@ -36,7 +38,7 @@ function HollowButton({ onClick, text, dark, children }: HollowButtonProps) {
       variant={'outline'}
       borderRadius={'lg'}
       border={'2px'}
-      borderColor={bdColor}
+      borderColor={borderLineColor}
       fontSize={'xs'}
       color={dark ? 'circle.dark' : 'circle.font'}
     >

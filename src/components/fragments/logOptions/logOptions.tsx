@@ -1,6 +1,9 @@
 import { Box, Button, Image, Text } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 export function LogOptions() {
+  const { baseDarkerColor, borderLineColor } = useCustomColorModeValues();
+
   return (
     <>
       <Box bg={'white'} display={'flex'} flexDirection={'column'} gap={3}>
@@ -10,8 +13,8 @@ export function LogOptions() {
             as="hr"
             height="1px"
             border="0"
-            borderColor="gray.300"
-            backgroundColor="gray.300"
+            borderColor={borderLineColor}
+            backgroundColor={baseDarkerColor}
             marginY={4}
           />
           <Text fontSize={'xl'}>Or</Text>
@@ -20,8 +23,8 @@ export function LogOptions() {
             as="hr"
             height="1px"
             border="0"
-            borderColor="gray.300"
-            backgroundColor="gray.300"
+            borderColor={borderLineColor}
+            backgroundColor={baseDarkerColor}
             marginY={4}
           />
         </Box>

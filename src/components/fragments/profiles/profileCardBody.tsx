@@ -13,7 +13,7 @@ function ProfileCardBody({ username, name, bio }: ProfileCardBodyProps) {
       <Text as={'h1'} fontWeight={'700'} fontSize={'2xl'}>
         {name}
       </Text>
-      <Anchor href="#" children={'@' + username} align={'center'} thin={true} />
+      <Anchor href="#" children={'@' + username} />
       {bio && <Text fontSize={'sm'}>{bio}</Text>}
     </Flex>
   );

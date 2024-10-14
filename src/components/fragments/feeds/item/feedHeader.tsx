@@ -7,11 +7,12 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react';
-import { UserType } from '../../../../types/types';
-import GhostButton from '../../../elements/buttons/ghostButton';
-import { dateFormatter } from '../../../../utils/dateFormater';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { UserType } from '../../../../types/types';
+import { dateFormatter } from '../../../../utils/dateFormater';
+import GhostButton from '../../../elements/buttons/ghostButton';
 import { FeedButton } from './feedButton';
+import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
 
 interface FeedHeaderProps {
   name: string;
@@ -25,6 +26,8 @@ interface FeedHeaderProps {
 }
 
 export function FeedHeader({ name, username, date }: FeedHeaderProps) {
+  const { textColor } = useCustomColorModeValues();
+
   return (
     <>
       <CardHeader
@@ -37,24 +40,24 @@ export function FeedHeader({ name, username, date }: FeedHeaderProps) {
         <GhostButton onClick={() => null}>
           <Text
             fontSize={'sm'}
-            color={'circle.font'}
+            color={textColor}
             mr={'.5rem'}
             fontWeight={'700'}
           >
             {name}
           </Text>
-          <Text fontSize={'sm'} color={'circle.dark'}>
+          <Text fontSize={'sm'} color={textColor}>
             {username}
           </Text>
         </GhostButton>
-        <Text fontSize={'sm'} color={'circle.dark'}>
+        <Text fontSize={'sm'} color={textColor}>
           &#8226; {dateFormatter(date)}
         </Text>
         <Spacer />
         <Menu>
           <MenuButton
             as={FeedButton}
-            color={'circle.dark'}
+            color={textColor}
             icon={<BiDotsVerticalRounded fontSize={'1.5rem'} />}
             hoverColor={'circle.accent'}
             ml={'.5rem'}

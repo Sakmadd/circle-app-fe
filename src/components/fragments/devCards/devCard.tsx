@@ -7,12 +7,15 @@ import {
 } from 'react-icons/bi';
 import GhostButton from '../../elements/buttons/ghostButton';
 import { CardContainer } from '../utils/cardContainer';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 export function DevCard() {
+  const { textColor } = useCustomColorModeValues();
+
   return (
     <CardContainer>
       <Flex
-        color={'circle.dark'}
+        color={textColor}
         alignItems={'center'}
         gap={'.25rem'}
         mb={'.25rem'}
@@ -20,23 +23,23 @@ export function DevCard() {
         <Text color={'circle.font'} fontSize={'sm'}>
           Developed by <strong>Ahmad Safi'i</strong>
         </Text>
-        <Text color={'circle.dark'} fontSize={'sm'}>
+        <Text color={textColor} fontSize={'sm'}>
           •
         </Text>
-        <GhostButton color="circle.dark">
+        <GhostButton color={textColor}>
           <BiLogoGithub fontSize={'xl'} />
         </GhostButton>
-        <GhostButton color="circle.dark">
+        <GhostButton color={textColor}>
           <BiLogoLinkedinSquare fontSize={'xl'} />
         </GhostButton>
-        <GhostButton color="circle.dark">
+        <GhostButton color={textColor}>
           <BiLogoInstagram fontSize={'xl'} />
         </GhostButton>
-        <GhostButton color="circle.dark">
+        <GhostButton color={textColor}>
           <BiLogoTwitter fontSize={'xl'} />
         </GhostButton>
       </Flex>
-      <Flex color={'circle.dark'} fontSize={'xs'} alignItems={'center'}>
+      <Flex color={textColor} fontSize={'xs'} alignItems={'center'}>
         Powered by
         <Image
           src={'/src/assets/logo-dw.svg'}

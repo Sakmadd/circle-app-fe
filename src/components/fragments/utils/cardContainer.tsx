@@ -1,24 +1,23 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 interface BrandCardProps {
   children: ReactNode;
 }
 
 export function CardContainer({ children }: BrandCardProps) {
-  const borderBaseDarker = useColorModeValue('day.baseDarker', 'transparent');
-  const bgBaseDarker = useColorModeValue('transparent', 'night.baseDarker');
-  const fontColor = useColorModeValue('day.text', 'night.text');
-  const border = useColorModeValue('2px', '0px');
+  const { borderLineColor, baseColor, textColor } = useCustomColorModeValues();
+
   return (
     <Flex
       flexDirection={'column'}
-      border={border}
-      borderColor={borderBaseDarker}
-      backgroundColor={bgBaseDarker}
+      border={'2px'}
+      borderColor={borderLineColor}
+      backgroundColor={baseColor}
       borderRadius={'10px'}
       padding={'5%'}
-      color={fontColor}
+      color={textColor}
     >
       {' '}
       {children}

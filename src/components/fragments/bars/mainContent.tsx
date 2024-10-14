@@ -1,18 +1,19 @@
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 interface MainBarProps {
   children: ReactNode;
 }
 
 export function MainContent({ children }: MainBarProps) {
-  const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
+  const { borderLineColor } = useCustomColorModeValues();
   return (
     <Box
       as={'section'}
       border={'2px'}
       borderTop={'0px'}
-      borderColor={borderColor}
+      borderColor={borderLineColor}
       minHeight={'500vh'}
       width={'full'}
     >

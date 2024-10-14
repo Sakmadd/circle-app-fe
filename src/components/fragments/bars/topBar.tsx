@@ -5,30 +5,36 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { ModeButton } from '../../elements/buttons/modeButton';
 import { ProfileButton } from '../../elements/buttons/profileButton';
+import { NavigationMobile } from '../mobile/navigationMobile';
+import { UserPreferencesMobile } from '../mobile/userPreferencesMobile';
 
-export function TopBar({
-  toggleMenu,
-  togglePreferences,
-}: {
-  toggleMenu: () => void;
-  togglePreferences: () => void;
-}) {
-  const bgColor = useColorModeValue('day.base', 'night.base');
-  const borderColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
-  const fontColor = useColorModeValue('day.text', 'night.text');
+export function TopBar() {
+  const { baseColor, textColor, borderLineColor } = useCustomColorModeValues();
+
+  const {
+    isOpen: isNavOpen,
+    onOpen: onNavOpen,
+    onClose: onNavClose,
+  } = useDisclosure();
+  const {
+    isOpen: isPrefOpen,
+    onOpen: onPrefOpen,
+    onClose: onPrefClose,
+  } = useDisclosure();
 
   return (
     <>
       <Box
         borderBottom={'2px'}
-        borderColor={borderColor}
-        bg={bgColor}
+        borderColor={borderLineColor}
+        bg={baseColor}
         position={'sticky'}
         top={0}
         zIndex={10}
@@ -43,12 +49,12 @@ export function TopBar({
             <Box
               display={{ base: 'block', xl: 'none' }}
               paddingTop={{ base: '0px', lg: '5px' }}
-              color={fontColor}
+              color={textColor}
               margin={'auto'}
               fontSize={'2xl'}
               paddingRight={'10px'}
             >
-              <RxHamburgerMenu onClick={toggleMenu} />
+              <RxHamburgerMenu onClick={onNavOpen} />
             </Box>
             <Image
               src="/src/assets/circle-logo.svg"
@@ -62,7 +68,7 @@ export function TopBar({
           </Flex>
           <InputGroup maxWidth={'500px'} margin={'auto'}>
             <InputLeftElement pointerEvents="none">
-              <FiSearch color={bgColor} />
+              <FiSearch color={baseColor} />
             </InputLeftElement>
             <Input
               fontSize={{ base: '10px', md: '14px' }}
@@ -75,7 +81,7 @@ export function TopBar({
             <Box
               display={{ base: 'block', lg: 'none' }}
               margin={'auto'}
-              onClick={togglePreferences}
+              onClick={onPrefOpen}
             >
               <ProfileButton />
             </Box>
@@ -83,6 +89,8 @@ export function TopBar({
           </Flex>
         </Flex>
       </Box>
+      <NavigationMobile isOpen={isNavOpen} onClose={onNavClose} />
+      <UserPreferencesMobile isOpen={isPrefOpen} onClose={onPrefClose} />
     </>
   );
 }

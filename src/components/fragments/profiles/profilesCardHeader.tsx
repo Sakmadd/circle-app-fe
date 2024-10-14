@@ -1,4 +1,5 @@
-import { Box, Image, useColorModeValue } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { Anchor } from '../../elements/links/anchor';
 
 export function ProfileCardHeader({
@@ -8,8 +9,7 @@ export function ProfileCardHeader({
   bgImg: string;
   profileImg: string;
 }) {
-  const bgBase = useColorModeValue('day.base', 'night.baseDarker');
-  const fontColor = useColorModeValue('day.text', 'night.text');
+  const { textColor, baseColor } = useCustomColorModeValues();
 
   return (
     <>
@@ -18,7 +18,7 @@ export function ProfileCardHeader({
         gap={'10px'}
         flexDirection={'column'}
         position={'relative'}
-        color={fontColor}
+        color={textColor}
       >
         <Box height={'100px'} overflow={'hidden'} borderRadius={'xl'}>
           <Image src={bgImg} />
@@ -34,7 +34,7 @@ export function ProfileCardHeader({
             width={'22%'}
             borderRadius={'full'}
             border={'4px'}
-            borderColor={bgBase}
+            borderColor={baseColor}
             src={profileImg}
           />
         </Anchor>

@@ -1,9 +1,12 @@
 import { Box, Button, Text } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { Inputs } from '../../elements/inputs';
 import { Anchor } from '../../elements/links/anchor';
 import { LogoText } from '../../elements/logoText';
 
 export function ForgotInputForms() {
+  const { baseColor, borderLineColor } = useCustomColorModeValues();
+
   return (
     <>
       <Box
@@ -14,8 +17,9 @@ export function ForgotInputForms() {
       >
         <Box
           padding={'10%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'column'}
           gap={3}
@@ -31,8 +35,9 @@ export function ForgotInputForms() {
         <Box
           justifyContent={'center'}
           padding={'5%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'row'}
           gap={1}

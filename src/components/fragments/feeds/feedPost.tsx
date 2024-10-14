@@ -5,11 +5,19 @@ import {
   Flex,
   FormControl,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalOverlay,
+  Spacer,
   Text,
-  useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { BiImageAdd } from 'react-icons/bi';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import SolidButton from '../../elements/buttons/solidButton';
 import ImagePreview from '../utils/imagePreview';
 import { FeedInput } from './feedInput';
@@ -34,17 +42,19 @@ export function FeedPost({
       setImagePreview(URL.createObjectURL(files[0]));
     }
   }
-  const bdColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
-  const fontColor = useColorModeValue('day.text', 'night.text');
+
+  const { baseColor, textColor, borderLineColor } = useCustomColorModeValues();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Box>
+      <Box onClick={onOpen}>
         <Text
           fontSize={'2xl'}
           fontWeight={'bold'}
           padding={'1rem'}
-          color={fontColor}
+          color={textColor}
           display={{ base: 'none', xl: 'block' }}
         >
           Home
@@ -71,13 +81,11 @@ export function FeedPost({
                   id={imagePreviewId}
                   variant={'hollow'}
                   placeholder={placeholder}
-                  onChange={(e) => onImageChange(e)}
+                  onChange={onImageChange}
                 />
-                <label htmlFor={imagePreviewId}>
-                  <Box color={fontColor}>
-                    <BiImageAdd fontSize={'1.5rem'} cursor={'pointer'} />
-                  </Box>
-                </label>
+                <Box color={textColor}>
+                  <BiImageAdd fontSize={'1.5rem'} cursor={'pointer'} />
+                </Box>
               </FormControl>
               <Box>
                 <SolidButton
@@ -89,12 +97,79 @@ export function FeedPost({
             </Flex>
           </Flex>
         </Flex>
-        <ImagePreview
-          imagePreview={imagePreview}
-          onClose={() => setImagePreview('')}
-        />
-        <Divider border={'1px'} borderColor={bdColor} />
+
+        <Divider border={'1px'} borderColor={borderLineColor} />
       </Box>
+
+      <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+        <ModalOverlay backdropFilter="blur(4px) " />
+        <ModalContent
+          backgroundColor={baseColor}
+          padding={'1rem'}
+          display={'flex'}
+          gap={'1rem'}
+          margin={'20px'}
+        >
+          <ModalCloseButton />
+          <ModalBody paddingX={'0px'}>
+            <Flex>
+              <Avatar
+                src={''}
+                marginRight={'20px'}
+                width={{ base: '2.5rem', md: '3rem' }}
+                height={{ base: '2.5rem', md: '3rem' }}
+              />
+
+              <FeedInput placeholder={placeholder} name={'content'} />
+            </Flex>
+          </ModalBody>
+          <ImagePreview
+            imagePreview={imagePreview}
+            onClose={() => setImagePreview('')}
+          />
+          <Divider border={'1px'} borderColor={borderLineColor} />
+          <ModalFooter
+            padding={'0px'}
+            display={'flex'}
+            justifyContent={'flex-end'}
+          >
+            <Flex
+              alignItems={'center'}
+              gap={'1rem'}
+              color={'circle.accent'}
+              width={'100%'}
+            >
+              <Box
+                display={'flex'}
+                justifyContent={'flex-end'}
+                alignItems={'center'}
+              >
+                <Input
+                  display={'none'}
+                  type={'file'}
+                  id={imagePreviewId}
+                  variant={'hollow'}
+                  placeholder={placeholder}
+                  onChange={(e) => onImageChange(e)}
+                />
+                <label htmlFor={imagePreviewId}>
+                  <Box color={textColor}>
+                    <BiImageAdd fontSize={'1.5rem'} cursor={'pointer'} />
+                  </Box>
+                </label>
+              </Box>
+              <Spacer />
+              <Box>
+                <SolidButton
+                  fontSize={{ base: '10px', sm: '12px', md: 'md' }}
+                  padding={{ base: '1', sm: '3', md: '5' }}
+                  text={buttonText ? buttonText : 'Post'}
+                />
+              </Box>
+            </Flex>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

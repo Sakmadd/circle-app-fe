@@ -1,28 +1,27 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { dummyAccounts } from '../../../data/dummy';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import HeadingText from '../../elements/texts/headingText';
 import { SuggestionAccountCard } from './suugestionAccountCard';
-import { dummyAccounts } from '../../../data/dummy';
 
 export function SuggestionCard() {
-  const borderBaseDarker = useColorModeValue('day.baseDarker', 'transparent');
-  const bgBaseDarker = useColorModeValue('transparent', 'night.baseDarker');
-  const border = useColorModeValue('2px', '0px');
-
-  const fontColor = useColorModeValue('day.text', 'night.text');
+  const { borderLineColor, baseColor, textColor } = useCustomColorModeValues();
   const users = dummyAccounts;
   return (
     <>
       <Flex
         flexDirection={'column'}
-        border={border}
-        borderColor={borderBaseDarker}
-        backgroundColor={bgBaseDarker}
+        border={'2px'}
+        borderColor={borderLineColor}
+        backgroundColor={baseColor}
         borderRadius={'10px'}
         padding={'5%'}
-        color={fontColor}
+        color={textColor}
         gap={'.7rem'}
       >
-        <HeadingText size="lg">Suggested For You</HeadingText>
+        <HeadingText size="lg" textAlign={{ base: 'center', lg: 'left' }}>
+          Suggested For You
+        </HeadingText>
         <Flex
           flexDirection={'column'}
           gap={'1rem'}

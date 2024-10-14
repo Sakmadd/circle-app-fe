@@ -1,4 +1,5 @@
-import { Button, ButtonProps, useColorModeValue } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { transparentHover } from '../../../styles/style';
 
 interface SolidButtonProps extends ButtonProps {
@@ -6,13 +7,14 @@ interface SolidButtonProps extends ButtonProps {
 }
 
 function SolidButton({ onClick, text, ...props }: SolidButtonProps) {
-  const fontColor = useColorModeValue('white', 'black');
+  const { accentTextColor } = useCustomColorModeValues();
+
   return (
     <Button
       onClick={onClick}
       backgroundColor={'accent.base'}
       _hover={transparentHover}
-      color={fontColor}
+      color={accentTextColor}
       {...props}
     >
       {text}

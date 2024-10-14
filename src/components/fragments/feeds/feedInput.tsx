@@ -1,13 +1,14 @@
-import { FormControl, Textarea, useColorModeValue } from '@chakra-ui/react';
+import { FormControl, Textarea } from '@chakra-ui/react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
-interface FeedInputProps {
+interface FeedInputProps extends React.ComponentProps<'textarea'> {
   placeholder: string;
   name: string;
 }
 
 export function FeedInput(props: FeedInputProps) {
   const { placeholder, name } = props;
-  const fontColor = useColorModeValue('day.text', 'night.text');
+  const { textColor } = useCustomColorModeValues();
 
   return (
     <FormControl color={'circle.font'} minHeight={0}>
@@ -22,7 +23,7 @@ export function FeedInput(props: FeedInputProps) {
         fontSize={{ base: 'sm', md: 'lg' }}
         _active={{ background: 'none', boxShadow: 'none' }}
         _focus={{ background: 'none', boxShadow: 'none' }}
-        _placeholder={{ color: fontColor }}
+        _placeholder={{ color: textColor }}
         id={name}
         variant={'hollow'}
         overflow={'auto'}

@@ -1,64 +1,80 @@
-import { Flex, Spacer, useColorModeValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Spacer,
+} from '@chakra-ui/react';
 import { useRef } from 'react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import SolidButton from '../../elements/buttons/solidButton';
 import NavigationItem from '../navigations/navigationItem';
 
-export function NavigationMobile({
-  showNavigationMobile,
-}: {
-  showNavigationMobile: boolean;
-}) {
-  const bgColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
+interface ChildProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function NavigationMobile({ isOpen, onClose }: ChildProps) {
+  const { baseDarkerColor } = useCustomColorModeValues();
+
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   async function onLogout() {
     return;
   }
 
-  const leftNavigation = showNavigationMobile ? '0px' : '-100vh';
-
   return (
     <>
-      <Flex
-        ref={menuRef}
-        display={{ base: 'flex', xl: 'none' }}
-        backgroundColor={bgColor}
-        as={'nav'}
-        direction={'column'}
-        gap={'1rem'}
-        pos={'fixed'}
-        top={'24'}
-        width={{ base: '80%', sm: '60%', md: '50%', lg: '40%' }}
-        height={'80vh'}
-        zIndex={10}
-        padding={'3rem'}
-        borderRadius={'2xl'}
-        left={leftNavigation}
-        transition={'100ms'}
+      <Modal
+        isCentered
+        onClose={onClose}
+        isOpen={isOpen}
+        motionPreset="slideInLeft"
+        size={'xs'}
       >
-        <Link to={'/'}>
-          <NavigationItem icon={<BiSolidHome />} text={'Home'} />
-        </Link>
+        <ModalOverlay backdropFilter="blur(4px)" />
+        <ModalContent padding={0} pos={'absolute'} left={0}>
+          <ModalBody padding={0} backgroundColor={baseDarkerColor}>
+            <Flex
+              ref={menuRef}
+              display={{ base: 'flex', xl: 'none' }}
+              backgroundColor={baseDarkerColor}
+              as={'nav'}
+              direction={'column'}
+              gap={'1rem'}
+              height={'80vh'}
+              padding={'2rem'}
+              borderRadius={'2xl'}
+              transition={'100ms'}
+            >
+              <Link to={'/'}>
+                <NavigationItem icon={<BiSolidHome />} text={'Home'} />
+              </Link>
 
-        <Link to={'/follows'}>
-          <NavigationItem icon={<BiHeart />} text={'Follows'} />
-        </Link>
-        <Link to={'/me'}>
-          <NavigationItem icon={<BiUser />} text={'Me'} />
-        </Link>
+              <Link to={'/follows'}>
+                <NavigationItem icon={<BiHeart />} text={'Follows'} />
+              </Link>
+              <Link to={'/me'}>
+                <NavigationItem icon={<BiUser />} text={'Me'} />
+              </Link>
 
-        <SolidButton text="Create Post"></SolidButton>
-        <Spacer />
-        <Flex gap={'1rem'}>
-          <NavigationItem
-            icon={<BiLogOut />}
-            text={'Logout'}
-            onLogout={onLogout}
-          />
-        </Flex>
-      </Flex>
+              <SolidButton text="Create Post"></SolidButton>
+              <Spacer />
+              <Flex gap={'1rem'}>
+                <NavigationItem
+                  icon={<BiLogOut />}
+                  text={'Logout'}
+                  onLogout={onLogout}
+                />
+              </Flex>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

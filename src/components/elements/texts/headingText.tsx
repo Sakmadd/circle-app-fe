@@ -1,26 +1,18 @@
-import { Heading } from '@chakra-ui/react';
+import { Heading, HeadingProps } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-interface HeadingTextProps {
-  size?: string;
-  align?: string;
+interface HeadingTextProps extends HeadingProps {
   children: ReactNode;
-  mb?: string | number;
 }
 
 function HeadingText({
   size = 'xl',
   children,
   mb = '0',
-  align,
+  ...rest
 }: HeadingTextProps) {
   return (
-    <Heading
-      textAlign={align === undefined ? 'left' : 'center'}
-      fontWeight={'700'}
-      fontSize={size}
-      mb={mb}
-    >
+    <Heading fontWeight="700" fontSize={size} mb={mb} {...rest}>
       {children}
     </Heading>
   );

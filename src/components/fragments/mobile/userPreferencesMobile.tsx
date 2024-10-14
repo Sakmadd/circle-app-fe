@@ -1,33 +1,52 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+} from '@chakra-ui/react';
 import { useRef } from 'react';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import ProfileCard from '../profiles/profileCard';
+import { SuggestionCard } from '../suggestions/suggestionCard';
 
-export function UserPreferencesMobile({
-  showPreferencesMobile,
-}: {
-  showPreferencesMobile: boolean;
-}) {
-  const bgColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
+interface ChildProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function UserPreferencesMobile({ isOpen, onClose }: ChildProps) {
+  const { baseColor } = useCustomColorModeValues();
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const leftPreferences = showPreferencesMobile ? '0px' : '-100vh';
 
   return (
-    <Flex
-      ref={menuRef}
-      display={{ base: 'flex', lg: 'none' }}
-      backgroundColor={bgColor}
-      as={'nav'}
-      direction={'column'}
-      gap={'1rem'}
-      pos={'fixed'}
-      top={'24'}
-      width={{ base: '80%', sm: '60%', md: '50%', lg: '40%' }}
-      zIndex={10}
-      borderRadius={'2xl'}
-      right={leftPreferences}
-      transition={'100ms'}
+    <Modal
+      isCentered
+      onClose={onClose}
+      isOpen={isOpen}
+      motionPreset="slideInRight"
+      size={'xs'}
     >
-      <ProfileCard />
-    </Flex>
+      <ModalOverlay backdropFilter="blur(4px)" />
+
+      <ModalContent padding={0} pos={'absolute'} right={0}>
+        <ModalBody padding={5} bgColor={baseColor}>
+          <Flex
+            ref={menuRef}
+            display={{ base: 'flex', xl: 'none' }}
+            backgroundColor={baseColor}
+            as={'nav'}
+            direction={'column'}
+            gap={'1rem'}
+            height={'80vh'}
+            borderRadius={'2xl'}
+            transition={'100ms'}
+          >
+            <ProfileCard />
+            <SuggestionCard />
+          </Flex>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }

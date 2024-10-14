@@ -1,10 +1,13 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { Inputs } from '../../elements/inputs';
-import { LogOptions } from '../logOptions/logOptions';
 import { Anchor } from '../../elements/links/anchor';
 import { LogoText } from '../../elements/logoText';
+import { LogOptions } from '../logOptions/logOptions';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
 export function LoginInputForms() {
+  const { baseColor, borderLineColor } = useCustomColorModeValues();
+
   return (
     <>
       <Box
@@ -15,8 +18,9 @@ export function LoginInputForms() {
       >
         <Box
           padding={'10%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'column'}
           gap={3}
@@ -31,16 +35,15 @@ export function LoginInputForms() {
 
           <Button colorScheme="blackAlpha">login</Button>
           <LogOptions></LogOptions>
-          <Anchor thin={true} color="#000" href="/help/forgot">
-            Forgot Password ?
-          </Anchor>
+          <Anchor href="/help/forgot">Forgot Password ?</Anchor>
         </Box>
 
         <Box
           justifyContent={'center'}
           padding={'5%'}
-          border={{ base: 'none', md: '1px solid #E5E5E5' }}
-          bg={'white'}
+          border={{ base: 'none', md: '1px solid ' }}
+          borderColor={borderLineColor}
+          bg={baseColor}
           display={'flex'}
           flexDirection={'row'}
           gap={1}
