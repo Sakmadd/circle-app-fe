@@ -11,7 +11,7 @@ export interface UserType {
   totalFollower: number;
   totalFollowing: number;
   isFollowed: boolean;
-  vibes: PostType[];
+  feeds: FeedType[];
   filterContent: boolean;
 }
 
@@ -21,7 +21,7 @@ export interface FollowType {
   ownerId: number;
 }
 
-export interface PostType {
+export interface FeedType {
   id: number;
   content: string;
   image: string | null;

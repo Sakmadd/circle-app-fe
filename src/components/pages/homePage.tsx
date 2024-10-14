@@ -1,5 +1,7 @@
 import { MainContent } from '../fragments/bars/mainContent';
+import FeedList from '../fragments/feeds/feedList';
 import { FeedPost } from '../fragments/feeds/feedPost';
+import { dummyFeed } from '../../data/dummy';
 
 function HomePage() {
   return (
@@ -8,6 +10,7 @@ function HomePage() {
         placeholder={"What's on your mind?"}
         imagePreviewId={'atHome'}
       />
+      <FeedList feed={dummyFeed} />
     </MainContent>
   );
 }

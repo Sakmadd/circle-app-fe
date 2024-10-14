@@ -1,5 +1,5 @@
 import { Flex, Spacer, useColorModeValue } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import SolidButton from '../../elements/buttons/solidButton';
@@ -7,10 +7,8 @@ import NavigationItem from '../navigations/navigationItem';
 
 export function NavigationMobile({
   showNavigationMobile,
-  onCloseNavigationMobile,
 }: {
   showNavigationMobile: boolean;
-  onCloseNavigationMobile: () => void;
 }) {
   const bgColor = useColorModeValue('day.baseDarker', 'night.baseDarker');
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -18,27 +16,6 @@ export function NavigationMobile({
   async function onLogout() {
     return;
   }
-
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onCloseNavigationMobile();
-      }
-    },
-    [onCloseNavigationMobile]
-  );
-
-  useEffect(() => {
-    if (showNavigationMobile) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showNavigationMobile, handleClickOutside]);
 
   const leftNavigation = showNavigationMobile ? '0px' : '-100vh';
 

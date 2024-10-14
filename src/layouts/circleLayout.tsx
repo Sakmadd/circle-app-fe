@@ -1,12 +1,12 @@
 import { Box, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
+import { useState } from 'react';
 import { TopBar } from '../components/fragments/bars/topBar';
+import { NavigationMobile } from '../components/fragments/mobile/navigationMobile';
+import { UserPreferencesMobile } from '../components/fragments/mobile/userPreferencesMobile';
 import { Navigation } from '../components/fragments/navigations/navigation';
 import { UserPreferences } from '../components/fragments/userPreferences/userPreferences';
-import { NavigationMobile } from '../components/fragments/mobile/navigationMobile';
-import { useState } from 'react';
-import { UserPreferencesMobile } from '../components/fragments/mobile/userPreferencesMobile';
 
 export function CircleLayout() {
   const bgColor = useColorModeValue('day.base', 'night.base');
@@ -22,14 +22,8 @@ export function CircleLayout() {
 
   return (
     <>
-      <UserPreferencesMobile
-        onClosePreferencesMobile={togglePreferences}
-        showPreferencesMobile={showPreferences}
-      />
-      <NavigationMobile
-        onCloseNavigationMobile={toggleMenu}
-        showNavigationMobile={showNavigation}
-      />
+      <UserPreferencesMobile showPreferencesMobile={showPreferences} />
+      <NavigationMobile showNavigationMobile={showNavigation} />
       <Box backgroundColor={bgColor}>
         <TopBar togglePreferences={togglePreferences} toggleMenu={toggleMenu} />
 
