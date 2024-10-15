@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
-import { FeedType } from '../../../types/types';
-import { EmptyMessage } from '../utils/emptyMessage';
-import { FeedItem } from './item/feedItem';
+import { FeedType } from '../../../../types/types';
+import { EmptyMessage } from '../../utils/emptyMessage';
+import { FeedItem } from './feedItem';
 
 interface VibeListProps {
-  feed: FeedType[];
+  feeds: FeedType[];
   noLink?: boolean;
 }
 
-export default function FeedList({ feed, noLink }: VibeListProps) {
-  if (feed.length) {
+export default function FeedList({ feeds, noLink }: VibeListProps) {
+  if (feeds.length) {
     return (
       <Box>
-        {feed.map((feed) => {
+        {feeds.map((feed) => {
           if (noLink) {
             return <FeedItem feed={feed} key={feed.id} isReply />;
           }

@@ -1,22 +1,17 @@
-import {
-  Box,
-  Flex,
-  Image,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  useDisclosure,
-} from '@chakra-ui/react';
-import { FiSearch } from 'react-icons/fi';
+import { Box, Flex, Image, useDisclosure } from '@chakra-ui/react';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useLocation } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { ModeButton } from '../../elements/buttons/modeButton';
 import { ProfileButton } from '../../elements/buttons/profileButton';
-import { NavigationMobile } from '../mobile/navigationMobile';
-import { UserPreferencesMobile } from '../mobile/userPreferencesMobile';
+
+import { NavigationMobile } from '../modals/mobile/navigationMobile';
+import { UserPreferencesMobile } from '../modals/mobile/userPreferencesMobile';
+import { Search } from '../search/search';
 
 export function TopBar() {
   const { baseColor, textColor, borderLineColor } = useCustomColorModeValues();
+  const location = useLocation();
 
   const {
     isOpen: isNavOpen,
@@ -66,25 +61,18 @@ export function TopBar() {
               display={{ base: 'none', lg: 'block' }}
             ></Image>
           </Flex>
-          <InputGroup maxWidth={'500px'} margin={'auto'}>
-            <InputLeftElement pointerEvents="none">
-              <FiSearch color={baseColor} />
-            </InputLeftElement>
-            <Input
-              fontSize={{ base: '10px', md: '14px' }}
-              type="tel"
-              placeholder="Search"
-              focusBorderColor="accent.base"
-            />
-          </InputGroup>
+          <Search />
           <Flex gap={'10px'}>
-            <Box
-              display={{ base: 'block', lg: 'none' }}
-              margin={'auto'}
-              onClick={onPrefOpen}
-            >
-              <ProfileButton />
-            </Box>
+            {location.pathname !== '/self' && (
+              <Box
+                display={{ base: 'block', lg: 'none' }}
+                margin={'auto'}
+                onClick={onPrefOpen}
+              >
+                <ProfileButton />
+              </Box>
+            )}
+
             <ModeButton />
           </Flex>
         </Flex>

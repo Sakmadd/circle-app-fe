@@ -9,9 +9,9 @@ import {
 import { useRef } from 'react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
-import SolidButton from '../../elements/buttons/solidButton';
-import NavigationItem from '../navigations/navigationItem';
+import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
+import NavigationItem from '../../navigations/navigationItem';
+import SolidButton from '../../../elements/buttons/solidButton';
 
 interface ChildProps {
   isOpen: boolean;

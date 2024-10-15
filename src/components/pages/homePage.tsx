@@ -1,16 +1,20 @@
+import { dummyFeeds } from '../../data/dummy';
+import { FeedDataType } from '../../types/types';
 import { MainContent } from '../fragments/bars/mainContent';
-import FeedList from '../fragments/feeds/feedList';
 import { FeedPost } from '../fragments/feeds/feedPost';
-import { dummyFeed } from '../../data/dummy';
+import FeedList from '../fragments/feeds/item/feedList';
 
+const onPost: (data: FeedDataType) => Promise<void> | void = () => {};
 function HomePage() {
   return (
     <MainContent>
       <FeedPost
+        onPost={onPost}
+        modal={true}
         placeholder={"What's on your mind?"}
         imagePreviewId={'atHome'}
       />
-      <FeedList feed={dummyFeed} />
+      <FeedList feeds={dummyFeeds} />
     </MainContent>
   );
 }

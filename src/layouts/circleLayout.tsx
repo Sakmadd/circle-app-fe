@@ -12,11 +12,11 @@ export function CircleLayout() {
     <>
       <Box backgroundColor={baseColor}>
         <TopBar />
-
-        <Grid templateColumns={'repeat(24, 1fr)'}>
-          <Navigation />
-
-          <GridItem colSpan={{ base: 24, lg: 16, xl: 14 }}>
+        <Grid templateColumns={'repeat(25, 1fr)'}>
+          <GridItem colSpan={5} display={{ base: 'none', xl: 'block' }}>
+            <Navigation />
+          </GridItem>
+          <GridItem colSpan={{ base: 245, lg: 16, xl: 14 }}>
             <Outlet />
           </GridItem>
           <GridItem

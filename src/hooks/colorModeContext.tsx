@@ -7,6 +7,8 @@ interface ColorModeValues {
   accentTextColor: string;
   textColor: string;
   borderLineColor: string;
+  searchBarColor: string;
+  searchBodyColor: string;
 }
 
 export const ColorModeContext = createContext<ColorModeValues | undefined>(
@@ -26,6 +28,14 @@ export const ColorModeProvider: React.FC<{ children: React.ReactNode }> = ({
     'day.borderLineColor',
     'night.borderLineColor'
   );
+  const searchBarColor = useColorModeValue(
+    'day.searchBarColor',
+    'night.searchBarColor'
+  );
+  const searchBodyColor = useColorModeValue(
+    'day.searchBodyColor',
+    'night.searchBodyColor'
+  );
 
   return (
     <ColorModeContext.Provider
@@ -35,6 +45,8 @@ export const ColorModeProvider: React.FC<{ children: React.ReactNode }> = ({
         textColor,
         borderLineColor,
         accentTextColor,
+        searchBarColor,
+        searchBodyColor,
       }}
     >
       {children}

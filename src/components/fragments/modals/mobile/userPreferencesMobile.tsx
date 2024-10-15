@@ -6,9 +6,9 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
-import ProfileCard from '../profiles/profileCard';
-import { SuggestionCard } from '../suggestions/suggestionCard';
+import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
+import ProfileCard from '../../profiles/profileCard';
+import { SuggestionCard } from '../../suggestions/suggestionCard';
 
 interface ChildProps {
   isOpen: boolean;

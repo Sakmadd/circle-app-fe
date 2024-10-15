@@ -15,12 +15,6 @@ export interface UserType {
   filterContent: boolean;
 }
 
-export interface FollowType {
-  id: number;
-  targetId: number;
-  ownerId: number;
-}
-
 export interface FeedType {
   id: number;
   content: string;
@@ -32,4 +26,35 @@ export interface FeedType {
   isLiked: boolean;
   badLabels: string[];
   author: UserType | undefined;
+}
+export interface DetailedFeedType extends FeedType {
+  replies: FeedType[];
+  likes: LikeType[];
+}
+export interface LikeType {
+  id: number;
+  authorId: number;
+  targetId: number;
+}
+export interface FollowType {
+  id: number;
+  targetId: number;
+  ownerId: number;
+}
+
+export interface FeedDataType {
+  content: string;
+  badLabels: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image: any;
+}
+export interface EditUserDataType {
+  name: string;
+  username: string;
+  filterContent: boolean;
+  bio: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  avatar: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  banner: any;
 }

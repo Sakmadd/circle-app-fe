@@ -44,7 +44,11 @@ export function FeedItem({
           >
             <Flex gap={'1rem'}>
               <GhostButton alignItems={'self-start'}>
-                <Avatar src={'author'} />
+                <Avatar
+                  src={'author'}
+                  width={{ base: '2rem', md: '3rem' }}
+                  height={{ base: '2rem', md: '3rem' }}
+                />
               </GhostButton>
               <Flex direction={'column'} width={'100%'}>
                 <FeedHeader

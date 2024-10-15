@@ -1,13 +1,26 @@
-import { FormControl, Textarea } from '@chakra-ui/react';
-import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { Collapse, FormControl, Text, Textarea } from '@chakra-ui/react';
+import {
+  FieldError,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from 'react-hook-form';
+import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
 
-interface FeedInputProps extends React.ComponentProps<'textarea'> {
+interface FeedInputProps<T extends FieldValues> {
   placeholder: string;
-  name: string;
+  name: Path<T>;
+  register: UseFormRegister<T>;
+  error: FieldError | undefined;
 }
 
-export function FeedInput(props: FeedInputProps) {
-  const { placeholder, name } = props;
+export function FeedInput<T extends FieldValues>({
+  error,
+  name,
+  placeholder,
+  register,
+}: FeedInputProps<T>) {
+  const isCollapsed = error ? true : false;
   const { textColor } = useCustomColorModeValues();
 
   return (
@@ -27,6 +40,7 @@ export function FeedInput(props: FeedInputProps) {
         id={name}
         variant={'hollow'}
         overflow={'auto'}
+        {...register(name)}
         sx={{
           '&::-webkit-scrollbar': {
             width: '2px',
@@ -40,6 +54,11 @@ export function FeedInput(props: FeedInputProps) {
           },
         }}
       />
+      <Collapse in={isCollapsed} transition={{ enter: { duration: 0.5 } }}>
+        <Text mt={'.5rem'} color={'circle.error'}>
+          {error && error.message}
+        </Text>
+      </Collapse>
     </FormControl>
   );
 }

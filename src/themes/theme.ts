@@ -24,6 +24,8 @@ export const circleTheme = extendTheme({
       text: '#525131',
       textLight: '#939185',
       borderLineColor: '#F5F5F2',
+      searchBarColor: '#F5F5F2',
+      searchBodyColor: '#ebebe8',
     },
     night: {
       base: '#262626 ',
@@ -31,6 +33,8 @@ export const circleTheme = extendTheme({
       text: '#fff',
       textLight: '#939185',
       borderLineColor: '#363535',
+      searchBarColor: '#474646',
+      searchBodyColor: '#363535 ',
     },
   },
 });
