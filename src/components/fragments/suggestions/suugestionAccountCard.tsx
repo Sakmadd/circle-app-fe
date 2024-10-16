@@ -32,7 +32,6 @@ export function SuggestionAccountCard({
 
   return (
     <>
-      {' '}
       <Flex gap={'.5rem'} alignItems={'center'}>
         <Link to={`/user/${id}`}>
           <Avatar
@@ -64,7 +63,7 @@ export function SuggestionAccountCard({
               @{username}
             </Text>
           </Link>
-          {bio && !noBio && <Text fontSize={'xl'}>{bio}</Text>}
+          {bio && !noBio && <Text fontSize={'10px'}>{bio}</Text>}
         </Flex>
         {isLoading ? (
           <HollowButton />
