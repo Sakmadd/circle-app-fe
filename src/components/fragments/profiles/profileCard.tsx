@@ -8,7 +8,11 @@ import { UserType } from '../../../types/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 
-function ProfileCard() {
+interface ProfileCardProps {
+  profileHandler?: () => void;
+}
+
+function ProfileCard({ profileHandler }: ProfileCardProps) {
   const loggedUser: UserType | undefined = useSelector(
     (states: RootState) => states.loggedUser.value
   );
@@ -45,7 +49,11 @@ function ProfileCard() {
         }
         color={textColor}
       >
-        <ProfileCardHeader bgImg={banner} profileImg={avatar} />
+        <ProfileCardHeader
+          bgImg={banner}
+          profileImg={avatar}
+          profileHandler={profileHandler}
+        />
         <ProfileCardBody bio={bio} name={name} username={username} />
         <ProfileCardFooter
           totalFollower={totalFollower}

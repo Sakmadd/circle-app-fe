@@ -1,15 +1,18 @@
 import { Box, Image } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
-import { Anchor } from '../../elements/links/anchor';
 
-export function ProfileCardHeader({
-  bgImg,
-  profileImg,
-}: {
+interface ProfileCardHeaderProps {
+  profileHandler?: () => void;
   bgImg: string | undefined;
   profileImg: string | undefined;
-}) {
+}
+
+export function ProfileCardHeader({
+  profileHandler,
+  bgImg,
+  profileImg,
+}: ProfileCardHeaderProps) {
   const location = useLocation();
   const { textColor, baseColor } = useCustomColorModeValues();
 
@@ -27,9 +30,9 @@ export function ProfileCardHeader({
           overflow={'hidden'}
           borderRadius={location.pathname === '/self' ? '0px' : 'xl'}
         >
-          <Image src={bgImg} />
+          <Image src={bgImg} alt="Background Image" />
         </Box>
-        <Anchor href="/#">
+        <Box onClick={profileHandler}>
           <Image
             position={'absolute'}
             top={'45%'}
@@ -42,8 +45,10 @@ export function ProfileCardHeader({
             border={'4px'}
             borderColor={baseColor}
             src={profileImg}
+            alt="Profile Image"
+            cursor="pointer"
           />
-        </Anchor>
+        </Box>
       </Box>
     </>
   );

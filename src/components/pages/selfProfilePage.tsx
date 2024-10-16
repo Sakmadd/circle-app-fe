@@ -1,19 +1,24 @@
 import { Box, Flex, Spacer, useDisclosure } from '@chakra-ui/react';
+import { FiEdit } from 'react-icons/fi';
+import { dummyFeeds } from '../../data/dummy';
+import { useCustomColorModeValues } from '../../hooks/useCustomColorModeValues';
+import GhostButton from '../elements/buttons/ghostButton';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
 import FeedList from '../fragments/feeds/item/feedList';
+import { EditProfileModal } from '../fragments/modals/editProfileModal';
 import ProfileCard from '../fragments/profiles/profileCard';
 import BrandTabs from '../fragments/utils/BrandTabs';
 import { MediaCollections } from './mediaCollections';
-import { dummyFeeds } from '../../data/dummy';
-import GhostButton from '../elements/buttons/ghostButton';
-import { FiEdit } from 'react-icons/fi';
-import { EditProfileModal } from '../fragments/modals/editProfileModal';
-import { useCustomColorModeValues } from '../../hooks/useCustomColorModeValues';
 
 export function SelfProfilePage() {
   const { textColor } = useCustomColorModeValues();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditProfileModalOpen,
+    onOpen: onEditProfileModalOpen,
+    onClose: onCloseEditProfileModal,
+  } = useDisclosure();
+
   return (
     <>
       <MainContent>
@@ -25,7 +30,7 @@ export function SelfProfilePage() {
               color={textColor}
               padding={'.5rem'}
               fontSize={'xl'}
-              onClick={onOpen}
+              onClick={onEditProfileModalOpen}
             >
               <FiEdit />
             </GhostButton>
@@ -43,9 +48,9 @@ export function SelfProfilePage() {
       </MainContent>
       <EditProfileModal
         onPost={() => {}}
-        isOpen={isOpen}
-        onClose={onClose}
-      ></EditProfileModal>
+        isOpen={isEditProfileModalOpen}
+        onClose={onCloseEditProfileModal}
+      />
     </>
   );
 }

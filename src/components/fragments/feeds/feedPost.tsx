@@ -42,7 +42,7 @@ export function FeedPost({
   return (
     <>
       <Box onClick={onOpen}>
-        {location.pathname === '/self' && (
+        {location.pathname === '/' && (
           <Text
             fontSize={'2xl'}
             fontWeight={'bold'}

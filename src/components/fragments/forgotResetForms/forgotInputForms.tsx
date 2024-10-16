@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
-import { Inputs } from '../../elements/inputs';
+import { Inputs } from '../../elements/input/inputs';
 import { Anchor } from '../../elements/links/anchor';
 import { LogoText } from '../../elements/logoText';
 

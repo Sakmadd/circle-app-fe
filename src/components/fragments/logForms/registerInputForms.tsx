@@ -1,5 +1,5 @@
 import { Box, Button, Text } from '@chakra-ui/react';
-import { Inputs } from '../../elements/inputs';
+import { Inputs } from '../../elements/input/inputs';
 import { Anchor } from '../../elements/links/anchor';
 import { LogOptions } from '../logOptions/logOptions';
 import { LogoText } from '../../elements/logoText';
@@ -18,7 +18,7 @@ export function RegisterInputForms() {
       >
         <Box
           padding={'10%'}
-          border={{ base: 'none', md: '1px solid ' }}
+          border={{ base: 'none', md: '1px solid grey' }}
           borderColor={borderLineColor}
           bg={baseColor}
           display={'flex'}
@@ -41,7 +41,7 @@ export function RegisterInputForms() {
         <Box
           justifyContent={'center'}
           padding={'5%'}
-          border={{ base: 'none', md: '1px solid ' }}
+          border={{ base: 'none', md: '1px solid grey' }}
           borderColor={borderLineColor}
           bg={baseColor}
           display={'flex'}

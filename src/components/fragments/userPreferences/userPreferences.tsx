@@ -1,10 +1,11 @@
 import { Flex } from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DevCard } from '../devCards/devCard';
 import ProfileCard from '../profiles/profileCard';
 import { SuggestionCard } from '../suggestions/suggestionCard';
-import { useLocation } from 'react-router-dom';
 
 export function UserPreferences() {
+  const navigation = useNavigate();
   const location = useLocation();
   return (
     <>
@@ -15,7 +16,9 @@ export function UserPreferences() {
         padding={'1rem'}
         width={{ lg: '36%', xl: '24%' }}
       >
-        {location.pathname !== '/self' && <ProfileCard />}
+        {location.pathname !== '/self' && (
+          <ProfileCard profileHandler={() => navigation('/self')} />
+        )}
         <SuggestionCard />
         <DevCard />
       </Flex>

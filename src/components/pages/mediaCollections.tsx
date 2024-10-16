@@ -1,18 +1,16 @@
-import { Grid, Image } from '@chakra-ui/react';
+import { Grid, Image, useDisclosure } from '@chakra-ui/react';
 import { FeedType } from '../../types/types';
 import GhostButton from '../elements/buttons/ghostButton';
+import { DetailImageModal } from '../fragments/modals/detailImageModal';
 
 interface MediaCollectionProps {
   feeds: FeedType[];
 }
 
 export function MediaCollections({ feeds }: MediaCollectionProps) {
-  function onImageClick(id: number): void {
-    console.log(id);
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      {' '}
       <Grid
         templateColumns={'repeat(3, 1fr)'}
         templateRows={'repeat(1, 150px)'}
@@ -23,7 +21,7 @@ export function MediaCollections({ feeds }: MediaCollectionProps) {
         {feeds.map((feed) => {
           if (feed.image) {
             return (
-              <GhostButton onClick={() => onImageClick(feed.id)} key={feed.id}>
+              <GhostButton onClick={onOpen} key={feed.id}>
                 <Image
                   src={feed.image}
                   height={'100%'}
@@ -35,6 +33,7 @@ export function MediaCollections({ feeds }: MediaCollectionProps) {
           }
         })}
       </Grid>
+      <DetailImageModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
