@@ -522,5 +522,4 @@ export const dummyUsers = [
     ],
     filterContent: false,
   },
-  // Add 5 more users with similar structure
 ];

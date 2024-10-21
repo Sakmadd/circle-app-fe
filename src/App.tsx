@@ -16,6 +16,7 @@ import { setPreloaded } from './redux/slices/preLoadedSlice';
 import { RootState } from './redux/store';
 import ColorModeHandler from './themes/colorMode';
 import { FeedDetailPage } from './components/pages/feedDetailPage';
+import FollowsPage from './components/pages/followPages';
 
 export const isLogin = true;
 
@@ -70,9 +71,10 @@ function App() {
       <Routes>
         <Route path="/" element={<CircleLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="/self" element={<SelfProfilePage />} />
-          <Route path="/user/:id" element={<SomeoneProfilePage />} />
           <Route path="/feed/:id" element={<FeedDetailPage />} />
+          <Route path="/user/:id" element={<SomeoneProfilePage />} />
+          <Route path="/self" element={<SelfProfilePage />} />
+          <Route path="/follows" element={<FollowsPage />} />
         </Route>
         <Route path="*" element={<div>404</div>} />
       </Routes>

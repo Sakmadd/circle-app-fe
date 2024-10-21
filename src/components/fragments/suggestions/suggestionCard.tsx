@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { dummyUsers } from '../../../data/dummy';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { RootState } from '../../../redux/store';
 import { UserType } from '../../../types/types';
 import HeadingText from '../../elements/texts/headingText';
 import { SuggestionAccountCard } from './suugestionAccountCard';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 
 export function SuggestionCard() {
   const { borderLineColor, baseColor, textColor } = useCustomColorModeValues();
