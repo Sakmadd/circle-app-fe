@@ -1,6 +1,5 @@
 import {
   Flex,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,12 +10,14 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { useEditProfile } from '../../../hooks/useEditProfile';
 import { EditUserDataType } from '../../../types/types';
 import HollowButton from '../../elements/buttons/hollowButton';
 import SolidButton from '../../elements/buttons/solidButton';
 import { EditProfileInput } from '../../elements/input/editProfileInput';
 import { ProfileCardHeader } from '../profiles/profilesCardHeader';
-import { useEditProfile } from '../../../hooks/useEditProfile';
+import { ChangeAvatarModal } from './imageEditor/changeAvatarModal';
+import { ChangeBannerModal } from './imageEditor/changeBannerModal';
 
 interface EditProfileModalProps {
   onPost: (data: EditUserDataType) => void;
@@ -34,62 +35,56 @@ export function EditProfileModal({
     register,
     handleSubmit,
     profilePreview,
-    onAvatarChange,
     loggedUser,
     bannerPreview,
-    onBannerChange,
+    onEditorBannerClose,
+    onEditorBannerOpen,
+    onEditorAvatarClose,
+    onEditorAvatarOpen,
+    isEditorAvatarOpen,
+    isEditorBannerOpen,
+    setBannerPreview,
+    setAvatarPreview,
   } = useEditProfile();
 
   return (
     <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
-      <ModalOverlay />
+      <ModalOverlay backdropFilter="blur(3px) " />
       <ModalContent backgroundColor={baseColor}>
         <ModalHeader color={textColor}>Edit Profile</ModalHeader>
         <ModalCloseButton />
+
         <ModalBody>
           <ProfileCardHeader
             bgImg={bannerPreview}
             profileImg={profilePreview}
           />
+
           <Flex gap={'1rem'} justifyContent={'center'} padding={'1rem'}>
-            <Input
-              {...register('avatar')}
-              display={'none'}
-              type={'file'}
-              id={'avatarInput'}
-              variant={'hollow'}
-              onChange={(e) => onAvatarChange(e)}
-            />
-            <HollowButton>
-              <Text
-                cursor={'pointer'}
-                as={'label'}
-                htmlFor={'avatarInput'}
-                paddingY={'20px'}
-              >
+            <HollowButton onClick={onEditorAvatarOpen}>
+              <Text cursor={'pointer'} paddingY={'20px'}>
                 Change Avatar
               </Text>
             </HollowButton>
-
-            <Input
-              {...register('banner')}
-              display={'none'}
-              type={'file'}
-              id={'bannerInput'}
-              variant={'hollow'}
-              onChange={(e) => onBannerChange(e)}
+            <ChangeAvatarModal
+              setAvatarPreview={setAvatarPreview}
+              isOpen={isEditorAvatarOpen}
+              onClose={onEditorAvatarClose}
+              register={register}
             />
-            <HollowButton>
-              <Text
-                cursor={'pointer'}
-                as={'label'}
-                htmlFor={'bannerInput'}
-                paddingY={'20px'}
-              >
+            <HollowButton onClick={onEditorBannerOpen}>
+              <Text cursor={'pointer'} paddingY={'20px'}>
                 Change Banner
               </Text>
             </HollowButton>
+            <ChangeBannerModal
+              setBannerPreview={setBannerPreview}
+              isOpen={isEditorBannerOpen}
+              onClose={onEditorBannerClose}
+              register={register}
+            />
           </Flex>
+
           <Flex
             alignItems={'center'}
             flexDirection={'column'}
@@ -113,6 +108,7 @@ export function EditProfileModal({
             />
           </Flex>
         </ModalBody>
+
         <ModalFooter>
           <SolidButton
             text="Save"

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { EditUserDataType, UserType } from '../types/types';
 import { RootState } from '../redux/store';
 import { EditUserSchema } from '../validators/validator';
+import { useDisclosure } from '@chakra-ui/react';
 
 export function useEditProfile() {
   const loggedUser: UserType | undefined = useSelector(
@@ -16,6 +17,18 @@ export function useEditProfile() {
   const [bannerPreview, setBannerPreview] = useState<string | undefined>(
     loggedUser?.banner
   );
+
+  const {
+    isOpen: isEditorAvatarOpen,
+    onClose: onEditorAvatarClose,
+    onOpen: onEditorAvatarOpen,
+  } = useDisclosure();
+
+  const {
+    isOpen: isEditorBannerOpen,
+    onClose: onEditorBannerClose,
+    onOpen: onEditorBannerOpen,
+  } = useDisclosure();
 
   function onBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
@@ -36,6 +49,14 @@ export function useEditProfile() {
     resolver: zodResolver(EditUserSchema),
   });
   return {
+    isEditorAvatarOpen,
+    isEditorBannerOpen,
+    onEditorAvatarClose,
+    onEditorBannerClose,
+    onEditorAvatarOpen,
+    onEditorBannerOpen,
+    setAvatarPreview,
+    setBannerPreview,
     register,
     handleSubmit,
     profilePreview,

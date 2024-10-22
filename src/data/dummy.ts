@@ -6,7 +6,7 @@ export const dummyUser = {
   avatar:
     'https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg',
   banner:
-    'https://s3-alpha-sig.figma.com/img/ff72/df09/d00360c5841aa3f95403eff20cb41f19?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=q3WDgg946e5-1Ojyl5~dMXGSWqTpS2T36oGpRx8OMooCd~uxeY8YPWPSqR96a~Y2B6xM~GQ2Jjm7DWqZzkb6Jmmfm~QBBXALbGsqbBymX98vj0tp4EEjN4B6vzh8CpdAgwRz~BUHIF0jTYbTp3etrQRO4Xc~AIjGY~rF~zltfxXGtl6FWe~TvTqxY3okicODHGpjB7ELzHpt5FAx1X0VdgcJpVkOK1bY1ehseZ3akm8oKagk6QP-89xKSRsE7Bq-c2HHxepLwEWfCdHcAuaIh2kwIB4ZL6kqdpqrf5ZrmRG39WK~Mfjr~Z-6CsUXgSK9ULOCDLJAw7V0vOD~ugEllA__',
+    'https://as1.ftcdn.net/v2/jpg/05/07/84/10/1000_F_507841060_QcTDBg7u2hu36Nv4zyxjcvKe0rUTm6jq.jpg',
   bio: 'I am a web developer who loves React and TypeScript.',
   followers: [
     {
