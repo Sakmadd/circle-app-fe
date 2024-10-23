@@ -16,6 +16,7 @@ function ProfileCard({ profileHandler }: ProfileCardProps) {
   const loggedUser: UserType | undefined = useSelector(
     (states: RootState) => states.loggedUser.value
   );
+  console.log(loggedUser);
   const location = useLocation();
 
   const { baseColor, borderLineColor, textColor } = useCustomColorModeValues();
@@ -28,8 +29,8 @@ function ProfileCard({ profileHandler }: ProfileCardProps) {
       bio,
       username,
       name,
-      totalFollower,
-      totalFollowing,
+      totalFollowers,
+      totalFollowings,
     } = loggedUser;
     return (
       <Flex
@@ -56,8 +57,8 @@ function ProfileCard({ profileHandler }: ProfileCardProps) {
         />
         <ProfileCardBody bio={bio} name={name} username={username} />
         <ProfileCardFooter
-          totalFollower={totalFollower}
-          totalFollowing={totalFollowing}
+          totalFollower={totalFollowers}
+          totalFollowing={totalFollowings}
         />
       </Flex>
     );

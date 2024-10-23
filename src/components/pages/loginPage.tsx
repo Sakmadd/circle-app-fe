@@ -10,16 +10,18 @@ export function LoginPage() {
   const navigate = useNavigate();
   const createToast = useCircleInfoToast();
 
-  async function onLogin(data: LoginDataType): Promise<void> {
-    const watchedPromise = registerHandler(data);
-    createToast(watchedPromise, {
+  async function onLogin(data: LoginDataType) {
+    const promise = handler(data);
+    createToast(promise, {
       title: 'Login',
       message: 'Logged In!',
     });
+    return promise;
   }
 
-  async function registerHandler(data: LoginDataType): Promise<unknown> {
+  async function handler(data: LoginDataType): Promise<unknown> {
     await api.LOGIN(data);
+    navigate('/');
     return navigate(0);
   }
   return (

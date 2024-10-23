@@ -61,7 +61,7 @@ function App() {
             <Route path="/*" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/help/forgot" element={<ForgotPage />} />
-            <Route path="/help/reset" element={<ResetPage />} />
+            <Route path="/help/reset/:token" element={<ResetPage />} />
           </Routes>
         </div>
       </>

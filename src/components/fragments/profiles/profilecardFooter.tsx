@@ -10,6 +10,7 @@ function ProfileCardFooter({
   totalFollower,
   totalFollowing,
 }: ProfileCardFooterProps) {
+  console.log(totalFollower);
   return (
     <Box display={'flex'} gap={'1rem'} padding={0} justifyContent={'center'}>
       <GhostButton>

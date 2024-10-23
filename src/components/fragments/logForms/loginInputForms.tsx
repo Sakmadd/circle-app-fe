@@ -75,7 +75,9 @@ export function LoginInputForms({ onSubmit }: LoginInputFormsProps) {
             {isSubmitting ? 'Loading...' : 'Login'}
           </Button>
         </Box>
-
+        <Box textAlign={'center'} fontSize={'15px'}>
+          <Anchor href="/help/forgot">Forgot Password?</Anchor>
+        </Box>
         <LogOptions />
       </Box>
 

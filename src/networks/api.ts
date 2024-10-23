@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
-import { UserType } from '../types/types';
-import { LoginDataType, RegisterDataType } from '../validators/formType';
 import { CONFIGS } from '../configs/config';
+import { UserType } from '../types/types';
+import {
+  ForgotDataType,
+  LoginDataType,
+  RegisterDataType,
+  ResetDataType,
+} from '../validators/formType';
 
 class API {
   async REGISTER(data: RegisterDataType): Promise<AxiosResponse> {
@@ -28,10 +33,57 @@ class API {
           password: data.password,
         }
       );
+      console.log(response);
+
+      if (response.data.error) {
+        throw new Error(response.data.message);
+      }
+
       const token: string = response.data.data.token;
       this.SET_TOKEN(token);
 
       return token;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async FORGOT(data: ForgotDataType): Promise<string> {
+    try {
+      const response: AxiosResponse = await axios.post(
+        `${CONFIGS.API_URL}/auth/forgot`,
+        {
+          email: data.email,
+        }
+      );
+      return response.data.data.token;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async RESET_PASSWORD(
+    data: ResetDataType,
+    token: string
+  ): Promise<AxiosResponse> {
+    try {
+      return await axios.patch(
+        `${CONFIGS.API_URL}/auth/reset`,
+        {
+          password: data.newPassword,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error;

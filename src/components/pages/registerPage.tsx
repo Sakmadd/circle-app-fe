@@ -10,12 +10,13 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const createToast = useCircleInfoToast();
 
-  async function onRegister(data: RegisterDataType): Promise<void> {
-    const watchedPromise = registerHandler(data);
-    createToast(watchedPromise, {
+  async function onRegister(data: RegisterDataType) {
+    const promise = registerHandler(data);
+    createToast(promise, {
       title: 'Register',
       message: 'Account created!',
     });
+    return promise;
   }
 
   async function registerHandler(data: RegisterDataType): Promise<unknown> {

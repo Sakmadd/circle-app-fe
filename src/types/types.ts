@@ -8,8 +8,8 @@ export interface UserType {
   bio: string | null;
   followers: FollowType[];
   followings: FollowType[];
-  totalFollower: number;
-  totalFollowing: number;
+  totalFollowers: number;
+  totalFollowings: number;
   isFollowed: boolean;
   feeds: FeedType[];
   filterContent: boolean;
