@@ -1,7 +1,9 @@
 import { Box, Flex, Spacer, useDisclosure } from '@chakra-ui/react';
 import { FiEdit } from 'react-icons/fi';
-import { dummyFeeds } from '../../data/dummy';
+import { useSelector } from 'react-redux';
 import { useCustomColorModeValues } from '../../hooks/useCustomColorModeValues';
+import { RootState } from '../../redux/store';
+import { UserType } from '../../types/types';
 import GhostButton from '../elements/buttons/ghostButton';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
@@ -12,6 +14,10 @@ import BrandTabs from '../fragments/utils/BrandTabs';
 import { MediaCollections } from './mediaCollections';
 
 export function SelfProfilePage() {
+  const loggeduser = useSelector(
+    (states: RootState) => states.loggedUser.value
+  );
+  const { feeds }: UserType = loggeduser!;
   const { textColor } = useCustomColorModeValues();
   const {
     isOpen: isEditProfileModalOpen,
@@ -36,13 +42,13 @@ export function SelfProfilePage() {
             </GhostButton>
           </Flex>
         </Flex>
-        <ProfileCard />
+        <ProfileCard user={loggeduser!} />
         <Box paddingTop={'1rem'}>
           <BrandTabs
             leftTitle={'Posts'}
-            leftContent={<FeedList feeds={dummyFeeds} />}
+            leftContent={<FeedList feeds={feeds} />}
             rightTitle={'Media'}
-            rightContent={<MediaCollections feeds={dummyFeeds} />}
+            rightContent={<MediaCollections feeds={feeds} />}
           ></BrandTabs>
         </Box>
       </MainContent>

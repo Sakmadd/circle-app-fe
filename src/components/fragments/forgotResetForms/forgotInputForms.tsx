@@ -20,8 +20,6 @@ export function ForgotInputForms({ onSubmit }: forgotInputFormsProps) {
   } = useForm<ForgotDataType>({
     resolver: zodResolver(ForgotSchema),
   });
-
-  console.log(isSubmitting);
   return (
     <>
       <Box

@@ -38,8 +38,8 @@ export interface LikeType {
 }
 export interface FollowType {
   id: number;
-  targetId: number;
-  ownerId: number;
+  followerId: number;
+  followingId: number;
 }
 
 export interface FeedDataType {

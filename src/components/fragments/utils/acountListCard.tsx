@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { UserType } from '../../../types/types';
-import { SuggestionAccountCard } from '../suggestions/suugestionAccountCard';
+import { AccountCard } from './accountCard';
 
 interface AccountListCardProps {
   accounts: UserType[];
@@ -11,7 +11,7 @@ function AccountListCard({ accounts }: AccountListCardProps) {
     return (
       <Flex direction={'column'} gap={'1rem'} padding={'1rem'}>
         {accounts.map((account) => (
-          <SuggestionAccountCard
+          <AccountCard
             key={account.id}
             id={account.id}
             username={account.username}

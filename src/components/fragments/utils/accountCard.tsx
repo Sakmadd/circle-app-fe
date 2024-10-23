@@ -1,6 +1,10 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import api from '../../../networks/api';
+import { setLoggedUser } from '../../../redux/slices/authSlice';
+import { UserType } from '../../../types/types';
 import HollowButton from '../../elements/buttons/hollowButton';
 
 interface AccountCardProps {
@@ -13,7 +17,7 @@ interface AccountCardProps {
   noBio?: boolean;
 }
 
-export function SuggestionAccountCard({
+export function AccountCard({
   id,
   username,
   name,
@@ -22,13 +26,34 @@ export function SuggestionAccountCard({
   isFollowed,
   noBio,
 }: AccountCardProps) {
-  const [isUserFollowed, setUserFollowed] = useState<boolean>(isFollowed);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [follows, setFollows] = useState<boolean>(isFollowed);
 
-  const onFollow = () => {
-    setUserFollowed(isFollowed);
-  };
+  const dispatch = useDispatch();
 
-  const isLoading = false;
+  async function onFollow() {
+    try {
+      setLoading(true);
+
+      if (!isFollowed) {
+        await api.FOLLOW_USER(id);
+        return setFollows(true);
+      }
+
+      await api.UNFOLLOW_USER(id);
+      return setFollows(false);
+    } catch {
+      setFollows(isFollowed);
+    } finally {
+      dispatchNewUserData();
+      setLoading(false);
+    }
+  }
+
+  async function dispatchNewUserData() {
+    const loggedUser: UserType = await api.GET_LOGGED_USER();
+    dispatch(setLoggedUser(loggedUser));
+  }
 
   return (
     <>
@@ -67,7 +92,7 @@ export function SuggestionAccountCard({
         </Flex>
         {isLoading ? (
           <HollowButton />
-        ) : isUserFollowed ? (
+        ) : follows ? (
           <HollowButton text={'Following'} onClick={onFollow} dark />
         ) : (
           <HollowButton text={'Follow'} onClick={onFollow} />

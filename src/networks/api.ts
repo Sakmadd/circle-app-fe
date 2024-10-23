@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { CONFIGS } from '../configs/config';
-import { UserType } from '../types/types';
+import { FollowType, UserType } from '../types/types';
 import {
   ForgotDataType,
   LoginDataType,
@@ -33,8 +33,6 @@ class API {
           password: data.password,
         }
       );
-      console.log(response);
-
       if (response.data.error) {
         throw new Error(response.data.message);
       }
@@ -109,6 +107,77 @@ class API {
         throw error;
       }
 
+      throw error;
+    }
+  }
+  async GET_ALL_USERS(): Promise<UserType[]> {
+    try {
+      const response = await axios.get(`${CONFIGS.API_URL}/users`, {
+        headers: {
+          Authorization: this.GET_TOKEN(),
+        },
+      });
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async GET_SINGLE_USER(id: number): Promise<UserType> {
+    try {
+      const response = await axios.get(
+        `${CONFIGS.API_URL}/users/detail/${id}`,
+        {
+          headers: {
+            Authorization: this.GET_TOKEN(),
+          },
+        }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.AxiosError) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async FOLLOW_USER(id: number): Promise<FollowType> {
+    try {
+      const response = await axios.post(
+        `${CONFIGS.API_URL}/follows/add/${id}`,
+        {},
+        { headers: { Authorization: this.GET_TOKEN() } }
+      );
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      throw error;
+    }
+  }
+  async UNFOLLOW_USER(id: number): Promise<FollowType> {
+    try {
+      const response = await axios.delete(
+        `${CONFIGS.API_URL}/follows/remove/${id}`,
+        {
+          headers: {
+            Authorization: this.GET_TOKEN(),
+          },
+        }
+      );
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.AxiosError) {
+        throw error;
+      }
       throw error;
     }
   }

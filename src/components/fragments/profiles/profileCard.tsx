@@ -1,27 +1,22 @@
 import { Flex } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { UserType } from '../../../types/types';
 import ProfileCardBody from './profileCardBody';
 import ProfileCardFooter from './profilecardFooter';
 import { ProfileCardHeader } from './profilesCardHeader';
-import { useLocation } from 'react-router-dom';
-import { UserType } from '../../../types/types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 
 interface ProfileCardProps {
   profileHandler?: () => void;
+  user: UserType;
 }
 
-function ProfileCard({ profileHandler }: ProfileCardProps) {
-  const loggedUser: UserType | undefined = useSelector(
-    (states: RootState) => states.loggedUser.value
-  );
-  console.log(loggedUser);
+function ProfileCard({ profileHandler, user }: ProfileCardProps) {
   const location = useLocation();
 
   const { baseColor, borderLineColor, textColor } = useCustomColorModeValues();
 
-  if (loggedUser) {
+  if (user) {
     const {
       id,
       avatar,
@@ -31,7 +26,7 @@ function ProfileCard({ profileHandler }: ProfileCardProps) {
       name,
       totalFollowers,
       totalFollowings,
-    } = loggedUser;
+    } = user;
     return (
       <Flex
         flexDirection={'column'}

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { dummyUsers } from '../../../data/dummy';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { SearchModal } from '../modals/searchModal';
-import { SuggestionAccountCard } from '../suggestions/suugestionAccountCard';
 import { SearchBar } from './searchBar';
+import { AccountCard } from '../utils/accountCard';
 
 export function Search() {
   useCustomColorModeValues();
@@ -43,7 +43,7 @@ export function Search() {
           <Flex gap={'10px'} flexDirection={'column'} padding={'5px'}>
             {dummyUsers.map((user) => (
               <>
-                <SuggestionAccountCard
+                <AccountCard
                   key={user.id}
                   id={user.id}
                   username={user.username}
