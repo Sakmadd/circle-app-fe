@@ -1,57 +1,111 @@
-import { Box, Button, Text } from '@chakra-ui/react';
-import { Inputs } from '../../elements/input/inputs';
-import { Anchor } from '../../elements/links/anchor';
-import { LogOptions } from '../logOptions/logOptions';
-import { LogoText } from '../../elements/logoText';
+import { Box, Button, Input, Text } from '@chakra-ui/react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { RegisterDataType } from '../../../validators/formType';
+import { Anchor } from '../../elements/links/anchor';
+import { LogoText } from '../../elements/logoText';
+import { LogOptions } from '../logOptions/logOptions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterSchema } from '../../../validators/validator';
 
-export function RegisterInputForms() {
+interface RegisterInputFormsProps {
+  onSubmit: SubmitHandler<RegisterDataType>;
+}
+
+export function RegisterInputForms({ onSubmit }: RegisterInputFormsProps) {
   const { baseColor, borderLineColor } = useCustomColorModeValues();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterDataType>({
+    resolver: zodResolver(RegisterSchema),
+  });
+
   return (
-    <>
+    <Box
+      width={{ base: 'full', md: '40%', '2xl': '30%' }}
+      display={'flex'}
+      flexDirection={'column'}
+      gap={3}
+    >
       <Box
-        width={{ base: 'full', md: '40%', '2xl': '30%' }}
+        padding={'10%'}
+        border={{ base: 'none', md: '1px solid grey' }}
+        borderColor={borderLineColor}
+        bg={baseColor}
         display={'flex'}
         flexDirection={'column'}
         gap={3}
       >
-        <Box
-          padding={'10%'}
-          border={{ base: 'none', md: '1px solid grey' }}
-          borderColor={borderLineColor}
-          bg={baseColor}
-          display={'flex'}
-          flexDirection={'column'}
-          gap={3}
-        >
-          <LogoText />
-          <Inputs
-            props={[
-              { name: 'username', placeholder: 'Username' },
-              { name: 'email', placeholder: 'Email' },
-              { name: 'password', placeholder: 'Password' },
-            ]}
-          ></Inputs>
-          <Button colorScheme="blackAlpha">Register</Button>
-
-          <LogOptions></LogOptions>
-        </Box>
+        <LogoText />
 
         <Box
-          justifyContent={'center'}
-          padding={'5%'}
-          border={{ base: 'none', md: '1px solid grey' }}
-          borderColor={borderLineColor}
-          bg={baseColor}
+          as="form"
+          onSubmit={handleSubmit(onSubmit)}
           display={'flex'}
-          flexDirection={'row'}
-          gap={1}
+          flexDir={'column'}
+          gap={'10px'}
         >
-          <Text fontSize={'sm'}>Already have an account?</Text>
-          <Anchor href="/login">Login</Anchor>
+          <Input
+            focusBorderColor="black"
+            placeholder="Full Name"
+            size="md"
+            {...register('name')}
+          />
+          {errors.name && <Text color="red.500">{errors.name.message}</Text>}
+          <Input
+            focusBorderColor="black"
+            placeholder="Username"
+            size="md"
+            {...register('username')}
+          />
+          {errors.username && (
+            <Text color="red.500">{errors.username.message}</Text>
+          )}
+          <Input
+            focusBorderColor="black"
+            placeholder="Email"
+            size="md"
+            {...register('email')}
+          />
+          {errors.email && <Text color="red.500">{errors.email.message}</Text>}
+          <Input
+            focusBorderColor="black"
+            placeholder="Password"
+            size="md"
+            type="password"
+            {...register('password')}
+          />
+          {errors.password && (
+            <Text color="red.500">{errors.password.message}</Text>
+          )}
+          <Button
+            colorScheme="blackAlpha"
+            disabled={isSubmitting}
+            type="submit"
+          >
+            {isSubmitting ? 'Loading...' : 'Register'}
+          </Button>
         </Box>
+
+        <LogOptions />
       </Box>
-    </>
+
+      <Box
+        justifyContent={'center'}
+        padding={'5%'}
+        border={{ base: 'none', md: '1px solid grey' }}
+        borderColor={borderLineColor}
+        bg={baseColor}
+        display={'flex'}
+        flexDirection={'row'}
+        gap={1}
+      >
+        <Text fontSize="sm">Already have an account?</Text>
+        <Anchor href="/login">Login</Anchor>
+      </Box>
+    </Box>
   );
 }

@@ -1,12 +1,21 @@
 import { Flex, Spacer } from '@chakra-ui/react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SolidButton from '../../elements/buttons/solidButton';
 import NavigationItem from './navigationItem';
+import api from '../../../networks/api';
+import { useDispatch } from 'react-redux';
+import { unsetLoggedUser } from '../../../redux/slices/authSlice';
 
 export function Navigation() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   async function onLogout() {
-    return;
+    api.SET_TOKEN('');
+    dispatch(unsetLoggedUser());
+
+    navigate('/');
   }
 
   return (
