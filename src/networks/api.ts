@@ -181,6 +181,24 @@ class API {
       throw error;
     }
   }
+  async SEARCH_USER(keyword: string): Promise<UserType[]> {
+    try {
+      const response = await axios.get(
+        `${CONFIGS.API_URL}/users/search?keyword=${keyword}`,
+        {
+          headers: {
+            Authorization: this.GET_TOKEN(),
+          },
+        }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.AxiosError) {
+        throw error;
+      }
+      throw error;
+    }
+  }
   SET_TOKEN(payload: string): void {
     localStorage.setItem('token', payload);
   }
