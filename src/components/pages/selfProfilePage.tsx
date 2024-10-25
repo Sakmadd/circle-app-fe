@@ -17,13 +17,14 @@ export function SelfProfilePage() {
   const loggeduser = useSelector(
     (states: RootState) => states.loggedUser.value
   );
-  const { feeds }: UserType = loggeduser!;
   const { textColor } = useCustomColorModeValues();
   const {
     isOpen: isEditProfileModalOpen,
     onOpen: onEditProfileModalOpen,
     onClose: onCloseEditProfileModal,
   } = useDisclosure();
+
+  const { feeds }: UserType = loggeduser!;
 
   return (
     <>

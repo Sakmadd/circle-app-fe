@@ -66,6 +66,14 @@ export const FeedSchema: ZodType = z.object({
   image: z.any(),
 });
 
+export const ReplySchema: ZodType = z.object({
+  content: z
+    .string()
+    .min(1, { message: 'Reply must not be empty.' })
+    .max(255, { message: 'Reply must be less than 255 characters.' }),
+  image: z.any(),
+});
+
 export const EditUserSchema: ZodType = z.object({
   username: z
     .string()

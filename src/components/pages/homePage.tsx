@@ -1,11 +1,23 @@
-import { dummyFeeds } from '../../data/dummy';
-import { FeedDataType } from '../../types/types';
+import { useEffect, useState } from 'react';
+import { useFeeds } from '../../hooks/useFeeds';
+import { FeedType } from '../../types/types';
 import { MainContent } from '../fragments/bars/mainContent';
 import { FeedPost } from '../fragments/feeds/feedPost';
 import FeedList from '../fragments/feeds/item/feedList';
 
-const onPost: (data: FeedDataType) => Promise<void> | void = () => {};
 function HomePage() {
+  const [preparedFeeds, setPreparedFeeds] = useState<FeedType[]>([]);
+  const { feeds, onPost } = useFeeds();
+
+  useEffect(() => {
+    setPreparedFeeds(() => {
+      if (feeds) {
+        return feeds;
+      }
+      return [];
+    });
+  }, [feeds]);
+
   return (
     <MainContent>
       <FeedPost
@@ -14,7 +26,7 @@ function HomePage() {
         placeholder={"What's on your mind?"}
         imagePreviewId={'atHome'}
       />
-      <FeedList feeds={dummyFeeds} />
+      <FeedList feeds={preparedFeeds} />
     </MainContent>
   );
 }

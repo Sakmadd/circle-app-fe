@@ -45,7 +45,7 @@ export function FeedItem({
             <Flex gap={'1rem'}>
               <GhostButton alignItems={'self-start'}>
                 <Avatar
-                  src={'author'}
+                  src={author.avatar}
                   width={{ base: '2rem', md: '3rem' }}
                   height={{ base: '2rem', md: '3rem' }}
                 />

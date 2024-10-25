@@ -1,9 +1,10 @@
 import { CardFooter, Flex, Spacer } from '@chakra-ui/react';
-import { FeedButton } from './feedButton';
-import { BiCommentDetail, BiSolidHeart } from 'react-icons/bi';
-import { UserType } from '../../../../types/types';
 import { useState } from 'react';
+import { BiCommentDetail } from 'react-icons/bi';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { UserType } from '../../../../types/types';
+import { FeedButton } from './feedButton';
 
 interface feedFooterProps {
   feedId: number;
@@ -33,7 +34,6 @@ export function FeedFooter({
         if (!isFeedLiked) {
           return oldState + 1;
         }
-
         return oldState - 1;
       });
     } catch {
@@ -46,13 +46,20 @@ export function FeedFooter({
       <CardFooter paddingLeft={'0px'}>
         {totalReply !== undefined && totalLike !== undefined && (
           <Flex gap={'1rem'}>
-            <FeedButton
-              icon={<BiSolidHeart />}
-              value={totalFeedLike}
-              color={isFeedLiked ? 'circle.red' : 'circle.dark'}
-              hoverColor={isFeedLiked ? 'circle.dark' : 'circle.red'}
-              onClick={onToggleLike}
-            />
+            {isFeedLiked ? (
+              <FeedButton
+                icon={<FaHeart />}
+                value={totalFeedLike}
+                onClick={onToggleLike}
+              />
+            ) : (
+              <FeedButton
+                icon={<FaRegHeart />}
+                value={totalFeedLike}
+                onClick={onToggleLike}
+              />
+            )}
+
             <FeedButton
               icon={<BiCommentDetail />}
               value={totalReply}

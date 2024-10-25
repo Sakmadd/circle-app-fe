@@ -41,6 +41,19 @@ export interface FollowType {
   followerId: number;
   followingId: number;
 }
+export interface ReplyType {
+  id: number;
+  image: string | null;
+  content: string;
+  userId: number;
+  feedId: number;
+}
+
+export interface ReplyDataType {
+  image: string | null;
+  content: string;
+  id: number;
+}
 
 export interface FeedDataType {
   content: string;
@@ -48,6 +61,7 @@ export interface FeedDataType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any;
 }
+
 export interface EditUserDataType {
   name: string;
   username: string;

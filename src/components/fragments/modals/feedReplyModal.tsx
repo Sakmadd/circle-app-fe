@@ -16,31 +16,35 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiImageAdd } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
+import { Params, useParams } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
-import { FeedDataType, UserType } from '../../../types/types';
-import { FeedSchema } from '../../../validators/validator';
+import { useReplies } from '../../../hooks/useReplies';
+import { RootState } from '../../../redux/store';
+import { ReplyDataType, UserType } from '../../../types/types';
+import { ReplySchema } from '../../../validators/validator';
 import SolidButton from '../../elements/buttons/solidButton';
 import { FeedInput } from '../feeds/item/feedInput';
 import ImagePreview from '../utils/imagePreview';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 
-interface feedPostModalProps {
-  onPost: (data: FeedDataType) => void;
+interface FeedReplyModalProps {
   isOpen: boolean;
   onClose: () => void;
   imagePreviewId: string;
   placeholder: string;
   buttonText: string | undefined;
 }
-export function FeedPostModal({
-  onPost,
+export function FeedReplyModal({
   isOpen,
   onClose,
   imagePreviewId,
   placeholder,
   buttonText,
-}: feedPostModalProps) {
+}: FeedReplyModalProps) {
+  const { id }: Readonly<Params<string>> = useParams();
+  const targetId = id ? +id : NaN;
+  const { onReply } = useReplies(targetId);
+
   const loggedUser: UserType | undefined = useSelector(
     (states: RootState) => states.loggedUser.value
   );
@@ -61,7 +65,7 @@ export function FeedPostModal({
     handleSubmit,
     formState: { errors },
     resetField,
-  } = useForm<FeedDataType>({ resolver: zodResolver(FeedSchema) });
+  } = useForm<ReplyDataType>({ resolver: zodResolver(ReplySchema) });
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
@@ -82,7 +86,6 @@ export function FeedPostModal({
               width={{ base: '2.5rem', md: '3rem' }}
               height={{ base: '2.5rem', md: '3rem' }}
             />
-
             <FeedInput
               error={errors.content}
               register={register}
@@ -133,7 +136,9 @@ export function FeedPostModal({
                 padding={{ base: '1', sm: '3', md: '5' }}
                 text={buttonText ? buttonText : 'Post'}
                 onClick={handleSubmit(async (data) => {
-                  onPost(data);
+                  data.feedId = data.feedId || targetId;
+                  data.image = data.image || null;
+                  onReply(data);
                   onClose();
                   resetField('content');
                   resetField('image');

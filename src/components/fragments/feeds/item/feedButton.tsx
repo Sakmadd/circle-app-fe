@@ -5,8 +5,8 @@ interface FeedButtonProps {
   onClick?: () => void;
   icon: ReactNode;
   value?: number;
-  color: string;
-  hoverColor: string;
+  color?: string;
+  hoverColor?: string;
   atLeft?: boolean;
   ml?: string;
 }

@@ -14,7 +14,7 @@ export function MainContent({ children }: MainBarProps) {
       border={'2px'}
       borderTop={'0px'}
       borderColor={borderLineColor}
-      minHeight={'500vh'}
+      minHeight={'100vh'}
       width={'full'}
     >
       {children}

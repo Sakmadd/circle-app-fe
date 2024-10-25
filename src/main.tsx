@@ -8,6 +8,9 @@ import { ColorModeProvider } from './hooks/colorModeContext.tsx';
 import store from './redux/store.ts';
 import './styles/index.css';
 import { circleTheme } from './themes/theme.ts';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,8 +18,12 @@ createRoot(document.getElementById('root')!).render(
       <ChakraProvider theme={circleTheme}>
         <ColorModeProvider>
           <BrowserRouter>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <App />
+            <QueryClientProvider client={queryClient}>
+              <ColorModeScript
+                initialColorMode={theme.config.initialColorMode}
+              />
+              <App />
+            </QueryClientProvider>
           </BrowserRouter>
         </ColorModeProvider>
       </ChakraProvider>

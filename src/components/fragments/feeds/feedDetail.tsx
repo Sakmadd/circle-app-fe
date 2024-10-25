@@ -1,22 +1,25 @@
 import { Box } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { dummyUsers } from '../../../data/dummy';
-import { DetailedFeedType, FeedDataType, UserType } from '../../../types/types';
-import { FeedPost } from './feedPost';
+import api from '../../../networks/api';
+import { DetailedFeedType, UserType } from '../../../types/types';
+import { FeedReply } from './feedReply';
 import { FeedItem } from './item/feedItem';
 import FeedList from './item/feedList';
 
 interface FeedDetailProps {
-  onReply: (data: FeedDataType) => void;
   feed: DetailedFeedType;
   noImage?: boolean;
 }
-export function FeedDetail({ feed, onReply, noImage }: FeedDetailProps) {
+export function FeedDetail({ feed, noImage }: FeedDetailProps) {
   const { replies, ...rest } = feed;
   const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
-    setUsers(dummyUsers);
+    async function getAllUser() {
+      const users: UserType[] = await api.GET_ALL_USERS();
+      setUsers(users);
+    }
+    getAllUser();
   }, []);
 
   const repliesWithAuthor = replies.map((reply) => {
@@ -30,14 +33,12 @@ export function FeedDetail({ feed, onReply, noImage }: FeedDetailProps) {
     return (
       <Box>
         <FeedItem feed={rest} noImage={noImage && noImage} repliesTarget />
-        <FeedPost
+        <FeedReply
           modal={true}
           placeholder={'Post your reply'}
-          onPost={onReply}
           imagePreviewId={'atDetail'}
           buttonText={'Reply'}
         />
-        <div>Hah kosong?</div>
       </Box>
     );
 
@@ -46,8 +47,7 @@ export function FeedDetail({ feed, onReply, noImage }: FeedDetailProps) {
       <>
         <Box>
           <FeedItem feed={rest} noImage={noImage && noImage} repliesTarget />
-          <FeedPost
-            onPost={onReply}
+          <FeedReply
             modal={true}
             placeholder="Leave a reply"
             imagePreviewId="atDetail"

@@ -1,4 +1,4 @@
-import { Flex, Spacer } from '@chakra-ui/react';
+import { Flex, Spacer, useDisclosure } from '@chakra-ui/react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import SolidButton from '../../elements/buttons/solidButton';
@@ -6,8 +6,12 @@ import NavigationItem from './navigationItem';
 import api from '../../../networks/api';
 import { useDispatch } from 'react-redux';
 import { unsetLoggedUser } from '../../../redux/slices/authSlice';
+import { FeedPostModal } from '../modals/feedPostModal';
+import { useFeeds } from '../../../hooks/useFeeds';
 
 export function Navigation() {
+  const { onPost } = useFeeds();
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,7 +44,7 @@ export function Navigation() {
         <Link to={'/self'}>
           <NavigationItem icon={<BiUser />} text={'Self'} />
         </Link>
-        <SolidButton text="Create Post"></SolidButton>
+        <SolidButton onClick={onOpen} text="Create Post"></SolidButton>
         <Spacer />
         <Flex gap={'1rem'}>
           <NavigationItem
@@ -50,6 +54,14 @@ export function Navigation() {
           />
         </Flex>
       </Flex>
+      <FeedPostModal
+        onPost={onPost}
+        onClose={onClose}
+        isOpen={isOpen}
+        buttonText="Post"
+        imagePreviewId="atNavigation"
+        placeholder="Whats On Your Mind?"
+      />
     </>
   );
 }

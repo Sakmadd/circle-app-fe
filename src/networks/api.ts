@@ -1,6 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 import { CONFIGS } from '../configs/config';
-import { FollowType, UserType } from '../types/types';
+import {
+  DetailedFeedType,
+  FeedDataType,
+  FeedType,
+  FollowType,
+  ReplyDataType,
+  ReplyType,
+  UserType,
+} from '../types/types';
 import {
   ForgotDataType,
   LoginDataType,
@@ -139,7 +147,7 @@ class API {
       );
       return response.data.data;
     } catch (error) {
-      if (axios.AxiosError) {
+      if (axios.isAxiosError(error)) {
         throw error;
       }
       throw error;
@@ -175,7 +183,7 @@ class API {
 
       return response.data.data;
     } catch (error) {
-      if (axios.AxiosError) {
+      if (axios.isAxiosError(error)) {
         throw error;
       }
       throw error;
@@ -193,7 +201,91 @@ class API {
       );
       return response.data.data;
     } catch (error) {
-      if (axios.AxiosError) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async GET_ALL_FEEDS(): Promise<FeedType[]> {
+    try {
+      const response = await axios.get(`${CONFIGS.API_URL}/feeds`, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async GET_SINGLE_FEED(id: number): Promise<DetailedFeedType> {
+    try {
+      const response = await axios.get(`${CONFIGS.API_URL}/feeds/${id}`, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async CREATE_FEED(data: FeedDataType): Promise<string> {
+    console.log(data);
+
+    try {
+      const response = await axios.post(`${CONFIGS.API_URL}/feeds`, data, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async DELETE_FEED(id: number): Promise<FeedType> {
+    try {
+      const response = await axios.delete(`${CONFIGS.API_URL}/feeds/${id}`, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async REPLY_FEED(data: ReplyDataType): Promise<ReplyType> {
+    try {
+      const response = await axios.post(
+        `${CONFIGS.API_URL}/replies/create`,
+        data,
+        { headers: { Authorization: this.GET_TOKEN() } }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async DELETE_REPLY(id: number): Promise<ReplyType> {
+    try {
+      const response = await axios.delete(
+        `${CONFIGS.API_URL}/replies/delete/${id}`,
+        { headers: { Authorization: this.GET_TOKEN() } }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
         throw error;
       }
       throw error;
