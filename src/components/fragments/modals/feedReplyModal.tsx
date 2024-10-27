@@ -136,7 +136,7 @@ export function FeedReplyModal({
                 padding={{ base: '1', sm: '3', md: '5' }}
                 text={buttonText ? buttonText : 'Post'}
                 onClick={handleSubmit(async (data) => {
-                  data.feedId = data.feedId || targetId;
+                  data.id = data.id || targetId;
                   data.image = data.image || null;
                   onReply(data);
                   onClose();

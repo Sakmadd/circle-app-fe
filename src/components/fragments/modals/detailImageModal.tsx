@@ -6,10 +6,8 @@ import {
   ModalContent,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { dummyDetailFeed } from '../../../data/dummy';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { LeftArrowButton } from '../../elements/buttons/leftArrowButton';
-import { FeedDetail } from '../feeds/feedDetail';
 
 interface detailImageModalProps {
   isOpen: boolean;
@@ -75,7 +73,7 @@ export const DetailImageModal = ({
                 paddingY={'20px'}
                 marginY={'0px'}
               />
-              <FeedDetail feed={dummyDetailFeed} onReply={() => {}} />
+              {/* <FeedDetail feed={dummyDetailFeed} onReply={() => {}} /> */}
             </Box>
           </ModalBody>
         </ModalContent>

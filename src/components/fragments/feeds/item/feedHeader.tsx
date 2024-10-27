@@ -13,6 +13,11 @@ import { dateFormatter } from '../../../../utils/dateFormater';
 import GhostButton from '../../../elements/buttons/ghostButton';
 import { FeedButton } from './feedButton';
 import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
+import { useNavigate } from 'react-router-dom';
+import { useFeeds } from '../../../../hooks/useFeeds';
+import { useReplies } from '../../../../hooks/useReplies';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
 interface FeedHeaderProps {
   name: string;
@@ -25,7 +30,20 @@ interface FeedHeaderProps {
   authorId: number;
 }
 
-export function FeedHeader({ name, username, date }: FeedHeaderProps) {
+export function FeedHeader({
+  name,
+  username,
+  date,
+  feedId,
+  repliesTarget,
+  isReply,
+  authorId,
+}: FeedHeaderProps) {
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
+  const navigate = useNavigate();
+  const { onDelete: feedOnDelete } = useFeeds();
+  const { onDelete: replyOnDelete } = useReplies(feedId);
+
   const { textColor } = useCustomColorModeValues();
 
   return (
@@ -37,7 +55,7 @@ export function FeedHeader({ name, username, date }: FeedHeaderProps) {
         padding={0}
         paddingBottom={'.5rem'}
       >
-        <GhostButton onClick={() => null}>
+        <GhostButton onClick={() => navigate(`/user/${authorId}`)}>
           <Text
             fontSize={'sm'}
             color={textColor}
@@ -62,17 +80,27 @@ export function FeedHeader({ name, username, date }: FeedHeaderProps) {
             hoverColor={'circle.accent'}
             ml={'.5rem'}
             atLeft
-          ></MenuButton>
+          />
           <MenuList bg={'circle.darker'} border={0}>
-            <MenuItem
-              bg={'circle.darker'}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            >
-              Delete
-            </MenuItem>
+            {authorId === loggedUser!.id && (
+              <MenuItem
+                bg={'circle.darker'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (repliesTarget) {
+                    navigate('/');
+                    return feedOnDelete(feedId);
+                  }
+                  if (isReply) {
+                    return replyOnDelete(feedId);
+                  }
+                  return feedOnDelete(feedId);
+                }}
+              >
+                Delete
+              </MenuItem>
+            )}
           </MenuList>
         </Menu>
       </CardHeader>

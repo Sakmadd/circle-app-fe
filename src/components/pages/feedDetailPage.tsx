@@ -1,5 +1,4 @@
 import { Params, useParams } from 'react-router-dom';
-import { dummyDetailFeed } from '../../data/dummy';
 import { useReplies } from '../../hooks/useReplies';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
@@ -25,7 +24,6 @@ export function FeedDetailPage() {
     <>
       <MainContent>
         <LeftArrowButton href="/" text="Post" />
-        <FeedDetail feed={dummyDetailFeed} />
       </MainContent>
     </>
   );

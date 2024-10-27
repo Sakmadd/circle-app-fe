@@ -2,9 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import { CONFIGS } from '../configs/config';
 import {
   DetailedFeedType,
+  EditUserDataType,
   FeedDataType,
   FeedType,
   FollowType,
+  LikeType,
   ReplyDataType,
   ReplyType,
   UserType,
@@ -95,6 +97,19 @@ class API {
         throw error;
       }
 
+      throw error;
+    }
+  }
+  async EDIT_USER(data: EditUserDataType): Promise<UserType> {
+    try {
+      const response = await axios.patch(`${CONFIGS.API_URL}/users`, data, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
       throw error;
     }
   }
@@ -281,6 +296,21 @@ class API {
     try {
       const response = await axios.delete(
         `${CONFIGS.API_URL}/replies/delete/${id}`,
+        { headers: { Authorization: this.GET_TOKEN() } }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async TOGGLE_LIKE(id: number): Promise<LikeType> {
+    try {
+      const response = await axios.post(
+        `${CONFIGS.API_URL}/likes/${id}`,
+        {},
         { headers: { Authorization: this.GET_TOKEN() } }
       );
       return response.data.data;

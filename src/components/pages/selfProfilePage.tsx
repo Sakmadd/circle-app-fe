@@ -54,7 +54,6 @@ export function SelfProfilePage() {
         </Box>
       </MainContent>
       <EditProfileModal
-        onPost={() => {}}
         isOpen={isEditProfileModalOpen}
         onClose={onCloseEditProfileModal}
       />

@@ -4,12 +4,12 @@ import { FeedType } from '../../../../types/types';
 import { EmptyMessage } from '../../utils/emptyMessage';
 import { FeedItem } from './feedItem';
 
-interface VibeListProps {
+interface FeedListProps {
   feeds: FeedType[];
   noLink?: boolean;
 }
 
-export default function FeedList({ feeds, noLink }: VibeListProps) {
+export default function FeedList({ feeds, noLink }: FeedListProps) {
   if (feeds.length) {
     return (
       <Box>

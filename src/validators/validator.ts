@@ -74,16 +74,21 @@ export const ReplySchema: ZodType = z.object({
   image: z.any(),
 });
 
-export const EditUserSchema: ZodType = z.object({
+export const EditUserProfileSchema: ZodType = z.object({
   username: z
     .string()
-    .min(4, { message: 'Username must be at least 4 characters long.' })
-    .max(255, { message: 'Username cannot exceed 255 characters.' }),
+    .min(4, { message: 'Username must be at least 4 characters long' })
+    .regex(userNameRegex, {
+      message:
+        'Username can only contain letters, numbers, and underscores (_)',
+    }),
   name: z
     .string()
     .min(4, { message: 'Name must be at least 4 characters long.' }),
   bio: z.string().min(1, { message: 'Bio must not be empty.' }),
-  filterContent: z.boolean(),
+});
+
+export const EditUserImageSchema: ZodType = z.object({
   avatar: z.any(),
   banner: z.any(),
 });

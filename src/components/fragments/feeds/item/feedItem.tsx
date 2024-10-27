@@ -5,6 +5,7 @@ import GhostButton from '../../../elements/buttons/ghostButton';
 import { FeedBody } from './feedBody';
 import { FeedFooter } from './feedFooter';
 import { FeedHeader } from './feedHeader';
+import { useNavigate } from 'react-router-dom';
 
 interface FeedItemProps {
   feed: FeedType;
@@ -18,6 +19,7 @@ export function FeedItem({
   repliesTarget,
   isReply,
 }: FeedItemProps) {
+  const navigate = useNavigate();
   const {
     id,
     content,
@@ -43,7 +45,10 @@ export function FeedItem({
             shadow={'none'}
           >
             <Flex gap={'1rem'}>
-              <GhostButton alignItems={'self-start'}>
+              <GhostButton
+                alignItems={'self-start'}
+                onClick={() => navigate(`/user/${author.id}`)}
+              >
                 <Avatar
                   src={author.avatar}
                   width={{ base: '2rem', md: '3rem' }}

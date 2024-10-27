@@ -5,6 +5,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { UserType } from '../../../../types/types';
 import { FeedButton } from './feedButton';
+import api from '../../../../networks/api';
 
 interface feedFooterProps {
   feedId: number;
@@ -36,6 +37,7 @@ export function FeedFooter({
         }
         return oldState - 1;
       });
+      await api.TOGGLE_LIKE(feedId);
     } catch {
       setFeedLiked(isLiked);
       setTotalFeedLike(totalLike);

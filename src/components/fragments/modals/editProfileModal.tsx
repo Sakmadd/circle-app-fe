@@ -11,41 +11,43 @@ import {
 } from '@chakra-ui/react';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { useEditProfile } from '../../../hooks/useEditProfile';
-import { EditUserDataType } from '../../../types/types';
 import HollowButton from '../../elements/buttons/hollowButton';
 import SolidButton from '../../elements/buttons/solidButton';
 import { EditProfileInput } from '../../elements/input/editProfileInput';
 import { ProfileCardHeader } from '../profiles/profilesCardHeader';
 import { ChangeAvatarModal } from './imageEditor/changeAvatarModal';
 import { ChangeBannerModal } from './imageEditor/changeBannerModal';
+import { UseEditImage } from '../../../hooks/useEditImage';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 interface EditProfileModalProps {
-  onPost: (data: EditUserDataType) => void;
   isOpen: boolean;
   onClose: () => void;
 }
-export function EditProfileModal({
-  isOpen,
-  onClose,
-  onPost,
-}: EditProfileModalProps) {
+export function EditProfileModal({ isOpen, onClose }: EditProfileModalProps) {
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
   const { baseColor, textColor } = useCustomColorModeValues();
 
   const {
-    register,
-    handleSubmit,
-    profilePreview,
-    loggedUser,
+    register: registerProfile,
+    handleSubmit: handleSubmitProfile,
+    onPost,
+  } = useEditProfile();
+
+  const {
+    avatarPreview,
     bannerPreview,
-    onEditorBannerClose,
-    onEditorBannerOpen,
-    onEditorAvatarClose,
-    onEditorAvatarOpen,
     isEditorAvatarOpen,
     isEditorBannerOpen,
-    setBannerPreview,
+    onEditorAvatarClose,
+    onEditorAvatarOpen,
+    onEditorBannerClose,
+    onEditorBannerOpen,
     setAvatarPreview,
-  } = useEditProfile();
+    setBannerPreview,
+    register: registerImage,
+  } = UseEditImage();
 
   return (
     <Modal onClose={onClose} size={'xl'} isOpen={isOpen}>
@@ -55,11 +57,7 @@ export function EditProfileModal({
         <ModalCloseButton />
 
         <ModalBody>
-          <ProfileCardHeader
-            bgImg={bannerPreview}
-            profileImg={profilePreview}
-          />
-
+          <ProfileCardHeader bgImg={bannerPreview} profileImg={avatarPreview} />
           <Flex gap={'1rem'} justifyContent={'center'} padding={'1rem'}>
             <HollowButton onClick={onEditorAvatarOpen}>
               <Text cursor={'pointer'} paddingY={'20px'}>
@@ -70,7 +68,7 @@ export function EditProfileModal({
               setAvatarPreview={setAvatarPreview}
               isOpen={isEditorAvatarOpen}
               onClose={onEditorAvatarClose}
-              register={register}
+              register={registerImage}
             />
             <HollowButton onClick={onEditorBannerOpen}>
               <Text cursor={'pointer'} paddingY={'20px'}>
@@ -81,7 +79,7 @@ export function EditProfileModal({
               setBannerPreview={setBannerPreview}
               isOpen={isEditorBannerOpen}
               onClose={onEditorBannerClose}
-              register={register}
+              register={registerImage}
             />
           </Flex>
 
@@ -93,17 +91,17 @@ export function EditProfileModal({
           >
             <EditProfileInput
               name="name"
-              register={register}
+              register={registerProfile}
               defaultValue={loggedUser?.name}
             />
             <EditProfileInput
               name="username"
-              register={register}
+              register={registerProfile}
               defaultValue={loggedUser?.username}
             />
             <EditProfileInput
               name="bio"
-              register={register}
+              register={registerProfile}
               defaultValue={loggedUser?.bio || ''}
             />
           </Flex>
@@ -112,7 +110,9 @@ export function EditProfileModal({
         <ModalFooter>
           <SolidButton
             text="Save"
-            onClick={handleSubmit(async (data) => onPost(data))}
+            onClick={() => {
+              handleSubmitProfile((data) => onPost(data))();
+            }}
           />
         </ModalFooter>
       </ModalContent>

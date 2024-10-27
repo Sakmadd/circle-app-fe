@@ -1,11 +1,11 @@
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../networks/api';
 import { DetailedFeedType, ReplyDataType, ReplyType } from '../types/types';
 import useCircleInfoToast from './circleInfoToast';
 
 export function useReplies(id: number) {
   const toast = useCircleInfoToast();
-  const queryClient: QueryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const { data: feed } = useQuery<DetailedFeedType | null>({
     queryKey: ['feed', id],
@@ -16,15 +16,45 @@ export function useReplies(id: number) {
 
   const createReply = useMutation({
     mutationFn: CREATE_REPLY,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['feed'] });
+    onSuccess: (newReply) => {
+      queryClient.setQueryData(
+        ['feed', id],
+        (oldData: DetailedFeedType | null) => {
+          if (!oldData) return null;
+          return {
+            ...oldData,
+            replies: [newReply, ...oldData.replies], // Tambahkan reply baru di awal array
+            totalReplies: oldData.totalReplies + 1,
+          };
+        }
+      );
+      toast(Promise.resolve(newReply), {
+        message: 'Successfully Replied!',
+        title: 'Reply Feed',
+      });
     },
   });
 
   const deleteReply = useMutation({
     mutationFn: DELETE_REPLY,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['feed'] });
+    onSuccess: (deletedReply) => {
+      queryClient.setQueryData(
+        ['feed', id],
+        (oldData: DetailedFeedType | null) => {
+          if (!oldData) return null;
+          return {
+            ...oldData,
+            replies: oldData.replies.filter(
+              (reply) => reply.id !== deletedReply.id
+            ),
+            totalReplies: oldData.totalReplies - 1,
+          };
+        }
+      );
+      toast(Promise.resolve(deletedReply), {
+        message: 'Reply Successfully Deleted!',
+        title: 'Delete Reply',
+      });
     },
   });
 
@@ -39,21 +69,11 @@ export function useReplies(id: number) {
   }
 
   async function CREATE_REPLY(data: ReplyDataType): Promise<ReplyType> {
-    const createReply: Promise<ReplyType> = api.REPLY_FEED(data);
-    toast(createReply, {
-      message: 'Successfully Replied!',
-      title: 'Reply Feed',
-    });
-    return createReply;
+    return await api.REPLY_FEED(data);
   }
 
   async function DELETE_REPLY(id: number): Promise<ReplyType> {
-    const deleteReply: Promise<ReplyType> = api.DELETE_REPLY(id);
-    toast(deleteReply, {
-      message: 'Reply Successfully Deleted!',
-      title: 'Delete Reply',
-    });
-    return deleteReply;
+    return await api.DELETE_REPLY(id);
   }
 
   return {

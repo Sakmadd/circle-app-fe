@@ -1,68 +1,32 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { EditUserProfileType } from '../types/types';
+import { EditUserProfileSchema } from '../validators/validator';
+import api from '../networks/api';
 import { useSelector } from 'react-redux';
-import { EditUserDataType, UserType } from '../types/types';
 import { RootState } from '../redux/store';
-import { EditUserSchema } from '../validators/validator';
-import { useDisclosure } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 export function useEditProfile() {
-  const loggedUser: UserType | undefined = useSelector(
-    (states: RootState) => states.loggedUser.value
-  );
-  const [profilePreview, setAvatarPreview] = useState<string | undefined>(
-    loggedUser?.avatar
-  );
-  const [bannerPreview, setBannerPreview] = useState<string | undefined>(
-    loggedUser?.banner
-  );
-
-  const {
-    isOpen: isEditorAvatarOpen,
-    onClose: onEditorAvatarClose,
-    onOpen: onEditorAvatarOpen,
-  } = useDisclosure();
-
-  const {
-    isOpen: isEditorBannerOpen,
-    onClose: onEditorBannerClose,
-    onOpen: onEditorBannerOpen,
-  } = useDisclosure();
-
-  function onBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = e.target.files;
-
-    if (files?.length) {
-      setBannerPreview(URL.createObjectURL(files[0]));
-    }
-  }
-  function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = e.target.files;
-
-    if (files?.length) {
-      setAvatarPreview(URL.createObjectURL(files[0]));
-    }
-  }
-
-  const { register, handleSubmit } = useForm<EditUserDataType>({
-    resolver: zodResolver(EditUserSchema),
+  const navigate = useNavigate();
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
+  const { register, handleSubmit } = useForm<EditUserProfileType>({
+    resolver: zodResolver(EditUserProfileSchema),
   });
+
+  async function onPost(data: EditUserProfileType) {
+    await api.EDIT_USER({
+      ...data,
+      id: loggedUser!.id,
+      filterContent: loggedUser!.filterContent,
+      banner: null,
+      avatar: null,
+    });
+    navigate(0);
+  }
   return {
-    isEditorAvatarOpen,
-    isEditorBannerOpen,
-    onEditorAvatarClose,
-    onEditorBannerClose,
-    onEditorAvatarOpen,
-    onEditorBannerOpen,
-    setAvatarPreview,
-    setBannerPreview,
+    onPost,
     register,
     handleSubmit,
-    profilePreview,
-    onAvatarChange,
-    loggedUser,
-    bannerPreview,
-    onBannerChange,
   };
 }

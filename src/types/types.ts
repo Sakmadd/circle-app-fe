@@ -27,8 +27,25 @@ export interface FeedType {
   badLabels: string[];
   author: UserType | undefined;
 }
+
+export interface ReplyType {
+  id: number;
+  image: string | null;
+  content: string;
+  userId: number;
+  feedId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ReplyDataType {
+  image: string | null;
+  content: string;
+  id: number;
+}
+
 export interface DetailedFeedType extends FeedType {
-  replies: FeedType[];
+  replies: ReplyType[];
   likes: LikeType[];
 }
 export interface LikeType {
@@ -41,19 +58,6 @@ export interface FollowType {
   followerId: number;
   followingId: number;
 }
-export interface ReplyType {
-  id: number;
-  image: string | null;
-  content: string;
-  userId: number;
-  feedId: number;
-}
-
-export interface ReplyDataType {
-  image: string | null;
-  content: string;
-  id: number;
-}
 
 export interface FeedDataType {
   content: string;
@@ -62,11 +66,25 @@ export interface FeedDataType {
   image: any;
 }
 
-export interface EditUserDataType {
+export interface EditUserProfileType {
   name: string;
   username: string;
-  filterContent: boolean;
   bio: string;
+}
+
+export interface EditUserImageType {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  avatar: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  banner: any;
+}
+
+export interface EditUserDataType {
+  id: number;
+  name: string;
+  username: string;
+  bio: string;
+  filterContent: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   avatar: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

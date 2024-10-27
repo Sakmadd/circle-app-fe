@@ -9,6 +9,8 @@ import { useRef } from 'react';
 import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
 import ProfileCard from '../../profiles/profileCard';
 import { SuggestionCard } from '../../suggestions/suggestionCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
 interface ChildProps {
   isOpen: boolean;
@@ -16,6 +18,7 @@ interface ChildProps {
 }
 
 export function UserPreferencesMobile({ isOpen, onClose }: ChildProps) {
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
   const { baseColor } = useCustomColorModeValues();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,7 +45,7 @@ export function UserPreferencesMobile({ isOpen, onClose }: ChildProps) {
             borderRadius={'2xl'}
             transition={'100ms'}
           >
-            <ProfileCard />
+            <ProfileCard user={loggedUser!} />
             <SuggestionCard />
           </Flex>
         </ModalBody>
