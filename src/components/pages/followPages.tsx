@@ -1,39 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import api from '../../networks/api';
 import { RootState } from '../../redux/store';
 import { UserType } from '../../types/types';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
 import BrandTabs from '../fragments/utils/BrandTabs';
 import AccountListCard from '../fragments/utils/acountListCard';
-import { dummyUsers } from '../../data/dummy';
 
 function FollowsPage() {
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
+
   const [followers, setFollowers] = useState<UserType[]>([]);
   const [followings, setFollowings] = useState<UserType[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const loggedUser = useSelector(
-    (states: RootState) => states.loggedUser.value
-  );
-
   useEffect(() => {
     async function getUsers() {
       setLoading(true);
-
+      const rawUsers = await api.GET_ALL_USERS();
       if (loggedUser) {
         setFollowers(() => {
-          return dummyUsers.filter((user) => {
+          return rawUsers.filter((user) => {
             return loggedUser.followers.some(
-              (follower) => follower.ownerId === user.id
+              (follower) => follower.followingId === user.id
             );
           });
         });
 
         setFollowings(() => {
-          return dummyUsers.filter((user) => {
+          return rawUsers.filter((user) => {
             return loggedUser.followings.some(
-              (following) => following.targetId === user.id
+              (following) => following.followerId === user.id
             );
           });
         });
@@ -44,7 +42,6 @@ function FollowsPage() {
 
     getUsers();
   }, [loggedUser]);
-
   return (
     <MainContent>
       <LeftArrowButton text="Follows" href="/" />

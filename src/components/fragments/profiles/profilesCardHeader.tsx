@@ -26,11 +26,15 @@ export function ProfileCardHeader({
         color={textColor}
       >
         <Box
-          height={'100px'}
           overflow={'hidden'}
           borderRadius={location.pathname === '/self' ? '0px' : 'xl'}
         >
-          <Image src={bgImg} alt="Background Image" />
+          <Image
+            src={bgImg}
+            alt="Background Image"
+            width={'full'}
+            height={'full'}
+          />
         </Box>
         <Box onClick={profileHandler}>
           <Image

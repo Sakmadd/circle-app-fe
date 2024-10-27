@@ -1,11 +1,26 @@
-import { Box, Button, Text } from '@chakra-ui/react';
-import { Inputs } from '../../elements/input/inputs';
+import { Box, Button, Input, Text } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { ResetDataType } from '../../../validators/formType';
+import { ResetSchema } from '../../../validators/validator';
 import { Anchor } from '../../elements/links/anchor';
 import { LogoText } from '../../elements/logoText';
-import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 
-export function ResetInputForms() {
+interface resetInputFormsProps {
+  onSubmit: SubmitHandler<ResetDataType>;
+}
+
+export function ResetInputForms({ onSubmit }: resetInputFormsProps) {
   const { baseColor, borderLineColor } = useCustomColorModeValues();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ResetDataType>({
+    resolver: zodResolver(ResetSchema),
+  });
 
   return (
     <>
@@ -28,13 +43,40 @@ export function ResetInputForms() {
           <Text fontSize={'md'} textAlign={'center'}>
             Secure Your Account!
           </Text>
-          <Inputs
-            props={[
-              { name: 'newPassword', placeholder: 'New Password' },
-              { name: 'confirmPassword', placeholder: 'Confirm Password' },
-            ]}
-          ></Inputs>
-          <Button colorScheme="blackAlpha">Create New Password</Button>
+          <Box
+            as="form"
+            onSubmit={handleSubmit(onSubmit)}
+            display={'flex'}
+            flexDir={'column'}
+            gap={'10px'}
+          >
+            <Input
+              focusBorderColor="black"
+              placeholder="New Password"
+              size="md"
+              {...register('newPassword')}
+            />
+            {errors.newPassword && (
+              <Text color="red.500">{errors.newPassword.message}</Text>
+            )}
+            <Input
+              focusBorderColor="black"
+              placeholder="Confirm Password"
+              size="md"
+              type="password"
+              {...register('confirmedPassword')}
+            />
+            {errors.confirmedPassword && (
+              <Text color="red.500">{errors.confirmedPassword.message}</Text>
+            )}
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              colorScheme="blackAlpha"
+            >
+              {isSubmitting ? 'Loading...' : 'Create New Password'}
+            </Button>
+          </Box>
         </Box>
 
         <Box

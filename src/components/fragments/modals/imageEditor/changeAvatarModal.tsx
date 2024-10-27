@@ -19,14 +19,18 @@ import {
 import { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import { UseFormRegister } from 'react-hook-form';
-import { EditUserDataType } from '../../../../types/types';
 import HollowButton from '../../../elements/buttons/hollowButton';
 import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
+import { EditUserImageType } from '../../../../types/types';
+import { blobToBase64 } from '../../../../utils/blobToBuffer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+import api from '../../../../networks/api';
 
 interface ChangeAvatarModalProps {
   isOpen: boolean;
   onClose: () => void;
-  register: UseFormRegister<EditUserDataType>;
+  register: UseFormRegister<EditUserImageType>;
   setAvatarPreview: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
@@ -36,23 +40,39 @@ export function ChangeAvatarModal({
   onClose,
   register,
 }: ChangeAvatarModalProps) {
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
+
   const { baseColor } = useCustomColorModeValues();
 
   const editorRef = useRef<AvatarEditor>(null);
   const [scale, setScale] = useState(1.0);
   const [image, setImage] = useState<File | null>(null);
+
   const onAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImage(file);
     }
   };
+
   const handleSave = () => {
     if (editorRef.current) {
-      const canvas = editorRef.current.getImage();
-      const croppedImageBase64 = canvas.toDataURL();
-      setAvatarPreview(croppedImageBase64);
-      onClose();
+      const canvas = editorRef.current.getImageScaledToCanvas();
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          const buffer = await blobToBase64(blob);
+
+          await api.EDIT_USER({
+            ...loggedUser!,
+            bio: loggedUser!.bio ?? '',
+            avatar: buffer,
+          });
+
+          const croppedImageBase64 = canvas.toDataURL();
+          setAvatarPreview(croppedImageBase64);
+          onClose();
+        }
+      }, 'image/png');
     }
   };
   return (
@@ -119,7 +139,7 @@ export function ChangeAvatarModal({
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={handleSave}>Change</Button>
+            <Button onClick={handleSave}>Save</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

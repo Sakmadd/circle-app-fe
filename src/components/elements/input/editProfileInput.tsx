@@ -1,11 +1,11 @@
 import { Box, Input, InputProps, Text } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
-import { EditUserDataType } from '../../../types/types';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import { EditUserProfileType } from '../../../types/types';
 
 interface EditProfileInputProps extends InputProps {
-  register: UseFormRegister<EditUserDataType>;
-  name: keyof EditUserDataType;
+  register: UseFormRegister<EditUserProfileType>;
+  name: keyof EditUserProfileType;
 }
 
 export function EditProfileInput({

@@ -12,9 +12,11 @@ interface FeedInputProps<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
   error: FieldError | undefined;
+  value?: string;
 }
 
 export function FeedInput<T extends FieldValues>({
+  value,
   error,
   name,
   placeholder,
@@ -26,6 +28,7 @@ export function FeedInput<T extends FieldValues>({
   return (
     <FormControl color={'circle.font'} minHeight={0}>
       <Textarea
+        defaultValue={value && value}
         px={0}
         border={0}
         bg={'transparent'}

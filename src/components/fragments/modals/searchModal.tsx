@@ -28,7 +28,7 @@ export function SearchModal({
   const { baseColor, searchBarColor, searchBodyColor } =
     useCustomColorModeValues();
   const { register, watch } = useForm();
-  const watchedValue = watch('username');
+  const watchedValue = watch('search');
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -55,7 +55,7 @@ export function SearchModal({
                 <FiSearch color={baseColor} fontSize={'30px'} />
               </Box>
               <Input
-                {...register('username')}
+                {...register('search')}
                 padding={'10px'}
                 paddingLeft={'20px'}
                 variant={'unstyled'}

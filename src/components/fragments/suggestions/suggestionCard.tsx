@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { dummyUsers } from '../../../data/dummy';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
+import api from '../../../networks/api';
 import { RootState } from '../../../redux/store';
 import { UserType } from '../../../types/types';
 import HeadingText from '../../elements/texts/headingText';
-import { SuggestionAccountCard } from './suugestionAccountCard';
+import { AccountCard } from '../utils/accountCard';
 
 export function SuggestionCard() {
   const { borderLineColor, baseColor, textColor } = useCustomColorModeValues();
@@ -14,10 +14,9 @@ export function SuggestionCard() {
   const loggedUser: UserType | undefined = useSelector(
     (states: RootState) => states.loggedUser.value
   );
-
   useEffect(() => {
     async function getUsers() {
-      const rawUsers: UserType[] = dummyUsers;
+      const rawUsers: UserType[] = await api.GET_ALL_USERS();
 
       if (loggedUser) {
         const users = rawUsers.filter((user) => {
@@ -67,7 +66,7 @@ export function SuggestionCard() {
             }}
           >
             {users.map((user) => (
-              <SuggestionAccountCard
+              <AccountCard
                 key={user.id}
                 id={user.id}
                 username={user.username}

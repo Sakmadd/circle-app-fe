@@ -1,8 +1,28 @@
 import { Box } from '@chakra-ui/react';
-import { RegisterInputForms } from '../fragments/logForms/registerInputForms';
+import { useNavigate } from 'react-router-dom';
+import useCircleInfoToast from '../../hooks/circleInfoToast';
+import api from '../../networks/api';
+import { RegisterDataType } from '../../validators/formType';
 import { SideImage1 } from '../elements/images/sideImage1';
+import { RegisterInputForms } from '../fragments/logForms/registerInputForms';
 
 export function RegisterPage() {
+  const navigate = useNavigate();
+  const createToast = useCircleInfoToast();
+
+  async function onRegister(data: RegisterDataType) {
+    const promise = registerHandler(data);
+    createToast(promise, {
+      title: 'Register',
+      message: 'Account created!',
+    });
+    return promise;
+  }
+
+  async function registerHandler(data: RegisterDataType): Promise<unknown> {
+    await api.REGISTER(data);
+    return navigate('/');
+  }
   return (
     <>
       <Box
@@ -15,7 +35,7 @@ export function RegisterPage() {
         gap={3}
       >
         <SideImage1 />
-        <RegisterInputForms></RegisterInputForms>
+        <RegisterInputForms onSubmit={onRegister} />
       </Box>
     </>
   );
