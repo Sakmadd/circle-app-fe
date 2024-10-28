@@ -59,8 +59,14 @@ export function useReplies(id: number) {
   });
 
   async function onReply(data: ReplyDataType): Promise<void> {
+    const formData: FormData = new FormData();
+
     if (id) {
-      createReply.mutate(data);
+      formData.append('id', id.toString());
+      formData.append('content', data.content);
+      formData.append('image', data.image ? data.image[0] : null);
+
+      createReply.mutate(formData);
     }
   }
 
@@ -68,7 +74,7 @@ export function useReplies(id: number) {
     deleteReply.mutate(id);
   }
 
-  async function CREATE_REPLY(data: ReplyDataType): Promise<ReplyType> {
+  async function CREATE_REPLY(data: FormData): Promise<ReplyType> {
     return await api.REPLY_FEED(data);
   }
 

@@ -2,6 +2,7 @@ import { Grid, Image, useDisclosure } from '@chakra-ui/react';
 import { FeedType } from '../../types/types';
 import GhostButton from '../elements/buttons/ghostButton';
 import { DetailImageModal } from '../fragments/modals/detailImageModal';
+import { useState } from 'react';
 
 interface MediaCollectionProps {
   feeds: FeedType[];
@@ -9,6 +10,12 @@ interface MediaCollectionProps {
 
 export function MediaCollections({ feeds }: MediaCollectionProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selecetedFeed, setSelectedFeed] = useState<number | null>(null);
+  function handleOpenModal(id: number) {
+    setSelectedFeed(id);
+    onOpen();
+  }
+
   return (
     <>
       <Grid
@@ -21,7 +28,10 @@ export function MediaCollections({ feeds }: MediaCollectionProps) {
         {feeds.map((feed) => {
           if (feed.image) {
             return (
-              <GhostButton onClick={onOpen} key={feed.id}>
+              <GhostButton
+                onClick={() => handleOpenModal(feed.id)}
+                key={feed.id}
+              >
                 <Image
                   src={feed.image}
                   height={'100%'}
@@ -33,7 +43,13 @@ export function MediaCollections({ feeds }: MediaCollectionProps) {
           }
         })}
       </Grid>
-      <DetailImageModal isOpen={isOpen} onClose={onClose} />
+      {selecetedFeed && (
+        <DetailImageModal
+          id={selecetedFeed}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      )}
     </>
   );
 }

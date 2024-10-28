@@ -65,6 +65,7 @@ export function FeedReplyModal({
     handleSubmit,
     formState: { errors },
     resetField,
+    setValue,
   } = useForm<ReplyDataType>({ resolver: zodResolver(ReplySchema) });
 
   return (
@@ -121,7 +122,13 @@ export function FeedReplyModal({
                 id={imagePreviewId}
                 variant={'hollow'}
                 placeholder={placeholder}
-                onChange={(e) => onImageChange(e)}
+                {...register('image', { value: [] })}
+                onChange={(e) => {
+                  onImageChange(e);
+                  if (e.target.files?.[0]) {
+                    setValue('image', [e.target.files[0]]);
+                  }
+                }}
               />
               <label htmlFor={imagePreviewId}>
                 <Box color={textColor}>

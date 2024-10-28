@@ -39,8 +39,6 @@ export function FeedDetail({ feed, noImage }: FeedDetailProps) {
     };
   });
 
-  console.log(repliesWithAuthor);
-
   if (!replies.length)
     return (
       <Box>

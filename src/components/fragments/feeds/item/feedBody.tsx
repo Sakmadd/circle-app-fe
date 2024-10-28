@@ -1,7 +1,6 @@
 import { CardBody, Image, Text } from '@chakra-ui/react';
-import GhostButton from '../../../elements/buttons/ghostButton';
-import { useSearchParams } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
+import GhostButton from '../../../elements/buttons/ghostButton';
 
 interface FeedBodyProps {
   feedId: number;
@@ -13,17 +12,13 @@ interface FeedBodyProps {
 
 export function FeedBody({
   feedContent,
-  feedId,
   feedImage,
   noImage,
   onOpen,
 }: FeedBodyProps) {
   const { textColor } = useCustomColorModeValues();
-  const [, setSearchParams] = useSearchParams();
 
   function onImageClick(): void {
-    setSearchParams({ feedId: String(feedId) });
-
     onOpen();
   }
   return (

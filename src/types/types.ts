@@ -39,7 +39,8 @@ export interface ReplyType {
 }
 
 export interface ReplyDataType {
-  image: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image: any;
   content: string;
   id: number;
 }
@@ -61,7 +62,6 @@ export interface FollowType {
 
 export interface FeedDataType {
   content: string;
-  badLabels: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any;
 }

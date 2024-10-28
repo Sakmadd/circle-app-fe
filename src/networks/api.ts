@@ -3,11 +3,9 @@ import { CONFIGS } from '../configs/config';
 import {
   DetailedFeedType,
   EditUserDataType,
-  FeedDataType,
   FeedType,
   FollowType,
   LikeType,
-  ReplyDataType,
   ReplyType,
   UserType,
 } from '../types/types';
@@ -248,9 +246,7 @@ class API {
       throw error;
     }
   }
-  async CREATE_FEED(data: FeedDataType): Promise<string> {
-    console.log(data);
-
+  async CREATE_FEED(data: FormData): Promise<string> {
     try {
       const response = await axios.post(`${CONFIGS.API_URL}/feeds`, data, {
         headers: { Authorization: this.GET_TOKEN() },
@@ -277,7 +273,7 @@ class API {
       throw error;
     }
   }
-  async REPLY_FEED(data: ReplyDataType): Promise<ReplyType> {
+  async REPLY_FEED(data: FormData): Promise<ReplyType> {
     try {
       const response = await axios.post(
         `${CONFIGS.API_URL}/replies/create`,

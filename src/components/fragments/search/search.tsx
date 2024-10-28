@@ -23,7 +23,6 @@ export function Search() {
     if (watchedValue) {
       async function search(keyword: string) {
         const result: UserType[] = await api.SEARCH_USER(keyword);
-        console.log(result);
         setSearchResult(result);
       }
       search(watchedValue);

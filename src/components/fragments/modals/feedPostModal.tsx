@@ -61,6 +61,7 @@ export function FeedPostModal({
     handleSubmit,
     formState: { errors },
     resetField,
+    setValue,
   } = useForm<FeedDataType>({ resolver: zodResolver(FeedSchema) });
 
   return (
@@ -118,7 +119,13 @@ export function FeedPostModal({
                 id={imagePreviewId}
                 variant={'hollow'}
                 placeholder={placeholder}
-                onChange={(e) => onImageChange(e)}
+                {...register('image', { value: [] })}
+                onChange={(e) => {
+                  onImageChange(e);
+                  if (e.target.files?.[0]) {
+                    setValue('image', [e.target.files[0]]);
+                  }
+                }}
               />
               <label htmlFor={imagePreviewId}>
                 <Box color={textColor}>
@@ -134,10 +141,10 @@ export function FeedPostModal({
                 text={buttonText ? buttonText : 'Post'}
                 onClick={handleSubmit(async (data) => {
                   onPost(data);
-                  onClose();
                   resetField('content');
                   resetField('image');
                   setImagePreview('');
+                  onClose();
                 })}
               />
             </Box>

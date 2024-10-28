@@ -43,7 +43,12 @@ export function useFeeds(params: useFeedsParams = {}) {
   });
 
   async function onPost(data: FeedDataType): Promise<void> {
-    createFeed.mutate(data);
+    const formData: FormData = new FormData();
+
+    formData.append('content', data.content);
+    formData.append('image', data.image ? data.image[0] : null);
+
+    createFeed.mutate(formData);
 
     if (params.onClose) {
       params.onClose();
@@ -54,7 +59,7 @@ export function useFeeds(params: useFeedsParams = {}) {
     deleteFeed.mutate(id);
   }
 
-  async function CREATE_FEED(data: FeedDataType): Promise<string> {
+  async function CREATE_FEED(data: FormData): Promise<string> {
     const createFeed: Promise<string> = api.CREATE_FEED(data);
     toast(createFeed, {
       title: 'Create Feed',

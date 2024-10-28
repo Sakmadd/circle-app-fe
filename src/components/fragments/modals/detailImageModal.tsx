@@ -8,16 +8,21 @@ import {
 } from '@chakra-ui/react';
 import { useCustomColorModeValues } from '../../../hooks/useCustomColorModeValues';
 import { LeftArrowButton } from '../../elements/buttons/leftArrowButton';
+import { FeedDetail } from '../feeds/feedDetail';
+import { useReplies } from '../../../hooks/useReplies';
 
 interface detailImageModalProps {
+  id: number;
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const DetailImageModal = ({
+  id,
   isOpen,
   onClose,
 }: detailImageModalProps) => {
+  const { feed } = useReplies(Number(id));
   const { baseColor } = useCustomColorModeValues();
   return (
     <>
@@ -41,7 +46,7 @@ export const DetailImageModal = ({
             flexDirection={{ base: 'column', lg: 'row' }}
           >
             <Box margin={'auto'} paddingY={'20px'}>
-              <Image src={'https://picsum.photos/1600/900'}></Image>
+              {feed?.image && <Image src={feed.image}></Image>}
             </Box>
             <Box
               minWidth={{ base: 'full', lg: '370px' }}
@@ -73,7 +78,7 @@ export const DetailImageModal = ({
                 paddingY={'20px'}
                 marginY={'0px'}
               />
-              {/* <FeedDetail feed={dummyDetailFeed} onReply={() => {}} /> */}
+              <FeedDetail feed={feed!} noImage />
             </Box>
           </ModalBody>
         </ModalContent>
