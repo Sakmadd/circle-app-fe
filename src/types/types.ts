@@ -1,5 +1,5 @@
 export interface UserType {
-  id: number;
+  id: string;
   username: string;
   name: string;
   email: string;
@@ -20,7 +20,7 @@ export interface FeedType {
   content: string;
   image: string | null;
   createdAt: string;
-  authorId: number;
+  authorId: string;
   totalReplies: number;
   totalLikes: number;
   isLiked: boolean;
@@ -32,7 +32,7 @@ export interface ReplyType {
   id: number;
   image: string | null;
   content: string;
-  userId: number;
+  userId: string;
   feedId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -51,13 +51,13 @@ export interface DetailedFeedType extends FeedType {
 }
 export interface LikeType {
   id: number;
-  authorId: number;
-  targetId: number;
+  authorId: string;
+  targetId: string;
 }
 export interface FollowType {
   id: number;
-  followerId: number;
-  followingId: number;
+  followerId: string;
+  followingId: string;
 }
 
 export interface FeedDataType {
@@ -80,7 +80,7 @@ export interface EditUserImageType {
 }
 
 export interface EditUserDataType {
-  id: number;
+  id: string;
   name: string;
   username: string;
   bio: string;
@@ -89,4 +89,11 @@ export interface EditUserDataType {
   avatar: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   banner: any;
+}
+
+export interface ProviderUserData {
+  id: string;
+  email: string | undefined;
+  name: string;
+  username: string;
 }

@@ -40,6 +40,7 @@ export function ChangeBannerModal({
   onClose,
   register,
 }: ChangeBannerModalProps) {
+  const [loading, setLoading] = useState(false);
   const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
   const { baseColor } = useCustomColorModeValues();
   const editorRef = useRef<AvatarEditor>(null);
@@ -54,6 +55,7 @@ export function ChangeBannerModal({
   };
 
   const handleSave = () => {
+    setLoading(true);
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       canvas.toBlob(async (blob) => {
@@ -68,6 +70,7 @@ export function ChangeBannerModal({
 
           const croppedImageBase64 = canvas.toDataURL();
           setBannerPreview(croppedImageBase64);
+          setLoading(false);
           onClose();
         }
       }, 'image/png');
@@ -141,7 +144,13 @@ export function ChangeBannerModal({
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={() => handleSave()}>Save</Button>
+            {loading ? (
+              <Button disabled onClick={handleSave}>
+                Uploading..
+              </Button>
+            ) : (
+              <Button onClick={handleSave}>Save</Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

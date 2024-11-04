@@ -8,7 +8,7 @@ import { UserType } from '../../../types/types';
 import HollowButton from '../../elements/buttons/hollowButton';
 
 interface AccountCardProps {
-  id: number;
+  id: string;
   username: string;
   name: string;
   bio?: string | null;
@@ -93,7 +93,7 @@ export function AccountCard({
         {isLoading ? (
           <HollowButton />
         ) : follows ? (
-          <HollowButton text={'Following'} onClick={onFollow} dark />
+          <HollowButton text={'Unfollow'} onClick={onFollow} dark />
         ) : (
           <HollowButton text={'Follow'} onClick={onFollow} />
         )}

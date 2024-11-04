@@ -6,6 +6,7 @@ import {
   FeedType,
   FollowType,
   LikeType,
+  ProviderUserData,
   ReplyType,
   UserType,
 } from '../types/types';
@@ -17,6 +18,37 @@ import {
 } from '../validators/formType';
 
 class API {
+  async LOGIN_PROVIDER(provider: string): Promise<string> {
+    try {
+      const response = await axios.post(
+        `${CONFIGS.API_URL}/auth/login/${provider}`
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async AUTH_CALLBACK_PROVIDER(data: ProviderUserData): Promise<string> {
+    try {
+      const response = await axios.post(`${CONFIGS.API_URL}/auth/callback`, {
+        id: data.id,
+        username: data.username,
+        name: data.name,
+        email: data.email,
+      });
+      const token: string = response.data.data;
+      this.SET_TOKEN(token);
+      return token;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
   async REGISTER(data: RegisterDataType): Promise<AxiosResponse> {
     try {
       return await axios.post(`${CONFIGS.API_URL}/auth/register`, {
@@ -148,7 +180,7 @@ class API {
       throw error;
     }
   }
-  async GET_SINGLE_USER(id: number): Promise<UserType> {
+  async GET_SINGLE_USER(id: string): Promise<UserType> {
     try {
       const response = await axios.get(
         `${CONFIGS.API_URL}/users/detail/${id}`,
@@ -166,7 +198,7 @@ class API {
       throw error;
     }
   }
-  async FOLLOW_USER(id: number): Promise<FollowType> {
+  async FOLLOW_USER(id: string): Promise<FollowType> {
     try {
       const response = await axios.post(
         `${CONFIGS.API_URL}/follows/add/${id}`,
@@ -183,7 +215,7 @@ class API {
       throw error;
     }
   }
-  async UNFOLLOW_USER(id: number): Promise<FollowType> {
+  async UNFOLLOW_USER(id: string): Promise<FollowType> {
     try {
       const response = await axios.delete(
         `${CONFIGS.API_URL}/follows/remove/${id}`,
@@ -223,6 +255,19 @@ class API {
   async GET_ALL_FEEDS(): Promise<FeedType[]> {
     try {
       const response = await axios.get(`${CONFIGS.API_URL}/feeds`, {
+        headers: { Authorization: this.GET_TOKEN() },
+      });
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+  async GET_USER_FEEDS(id: string): Promise<FeedType[]> {
+    try {
+      const response = await axios.get(`${CONFIGS.API_URL}/feeds/user/${id}`, {
         headers: { Authorization: this.GET_TOKEN() },
       });
       return response.data.data;

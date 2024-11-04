@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import { AuthCallbackPage } from './components/pages/authCallbackPage';
 import { FeedDetailPage } from './components/pages/feedDetailPage';
 import FollowsPage from './components/pages/followPages';
 import { ForgotPage } from './components/pages/forgotPasswordPage';
@@ -30,7 +31,9 @@ function App() {
     async function initializeApp() {
       try {
         const loggedUser: UserType = await api.GET_LOGGED_USER();
-        dispatch(setLoggedUser(loggedUser));
+        if (loggedUser) {
+          dispatch(setLoggedUser(loggedUser));
+        }
       } catch {
         dispatch(unsetLoggedUser());
       } finally {
@@ -62,6 +65,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/help/forgot" element={<ForgotPage />} />
             <Route path="/help/reset/:token" element={<ResetPage />} />
+            <Route path="/auth/callback" element={<AuthCallbackPage />} />
           </Routes>
         </div>
       </>

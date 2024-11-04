@@ -25,7 +25,7 @@ export function SomeoneProfilePage() {
 
   useEffect(() => {
     async function GET_USER() {
-      const user: UserType = await api.GET_SINGLE_USER(+id!);
+      const user: UserType = await api.GET_SINGLE_USER(id!);
 
       if (loggedUser) {
         if (loggedUser.id === user.id) {

@@ -8,7 +8,6 @@ export function FeedDetailPage() {
   const { id }: Readonly<Params<string>> = useParams();
   const targetId = id ? +id : NaN;
   const { feed } = useReplies(targetId);
-
   if (feed) {
     return (
       <>

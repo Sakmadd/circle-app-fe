@@ -40,6 +40,7 @@ export function ChangeAvatarModal({
   onClose,
   register,
 }: ChangeAvatarModalProps) {
+  const [loading, setLoading] = useState(false);
   const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
 
   const { baseColor } = useCustomColorModeValues();
@@ -56,6 +57,7 @@ export function ChangeAvatarModal({
   };
 
   const handleSave = () => {
+    setLoading(true);
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas();
       canvas.toBlob(async (blob) => {
@@ -70,6 +72,7 @@ export function ChangeAvatarModal({
 
           const croppedImageBase64 = canvas.toDataURL();
           setAvatarPreview(croppedImageBase64);
+          setLoading(false);
           onClose();
         }
       }, 'image/png');
@@ -139,7 +142,13 @@ export function ChangeAvatarModal({
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={handleSave}>Save</Button>
+            {loading ? (
+              <Button disabled onClick={handleSave}>
+                Uploading..
+              </Button>
+            ) : (
+              <Button onClick={handleSave}>Save</Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>
