@@ -49,7 +49,7 @@ export function AuthCallbackPage() {
         marginBottom={'50px'}
       >
         <Image
-          src={'/src/assets/preload-circle-logo.svg'}
+          src={'/assets/preload-circle-logo.svg'}
           width={'85px'}
           paddingTop={'15px'}
           style={animationStyle}

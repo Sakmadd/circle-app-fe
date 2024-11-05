@@ -16,7 +16,7 @@ export function LogoText({
         marginTop={marginy ?? '10%'}
         marginBottom={marginy ?? '10%'}
         width={width ?? '40%'}
-        src="/src/assets/circle-text.svg"
+        src="/assets/circle-text.svg"
       />
     </>
   );

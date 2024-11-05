@@ -42,7 +42,7 @@ export function DevCard() {
       <Flex color={textColor} fontSize={'xs'} alignItems={'center'}>
         Powered by
         <Image
-          src={'/src/assets/logo-dw.svg'}
+          src={'/assets/logo-dw.svg'}
           boxSize={'1.5rem'}
           display={'inline'}
           mx=".5rem"

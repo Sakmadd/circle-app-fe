@@ -40,7 +40,7 @@ export function LogOptions() {
             padding={'2'}
             onClick={() => handleLogin('google')}
           >
-            <Image src="/src/assets/social/google-icon.svg" />
+            <Image src="/assets/social/google-icon.svg" />
           </Button>
           <Button
             colorScheme="yellow"
@@ -48,7 +48,7 @@ export function LogOptions() {
             padding={'2'}
             onClick={() => handleLogin('facebook')}
           >
-            <Image src="/src/assets/social/facebook-icon.svg" />
+            <Image src="/assets/social/facebook-icon.svg" />
           </Button>
         </Box>
       </Box>

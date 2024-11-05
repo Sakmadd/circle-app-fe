@@ -52,12 +52,12 @@ export function TopBar() {
               <RxHamburgerMenu onClick={onNavOpen} />
             </Box>
             <Image
-              src="/src/assets/circle-logo.svg"
+              src="/assets/circle-logo.svg"
               width={'50px'}
               paddingTop={{ base: '0px', lg: '5px' }}
             ></Image>
             <Image
-              src="/src/assets/circle-text.svg"
+              src="/assets/circle-text.svg"
               display={{ base: 'none', lg: 'block' }}
             ></Image>
           </Flex>

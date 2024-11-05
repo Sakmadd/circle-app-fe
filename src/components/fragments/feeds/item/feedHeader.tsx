@@ -27,7 +27,7 @@ interface FeedHeaderProps {
   feedId: number;
   isReply?: boolean;
   repliesTarget?: boolean;
-  authorId: number;
+  authorId: string;
 }
 
 export function FeedHeader({
