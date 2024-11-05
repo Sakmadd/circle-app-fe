@@ -20,26 +20,30 @@ export function DevCard() {
         gap={'.25rem'}
         mb={'.25rem'}
       >
-        <Text color={'circle.font'} fontSize={'sm'}>
+        <Text color={'circle.font'} fontSize={{ base: '11px', md: 'xs' }}>
           Developed by <strong>Ahmad Safi'i</strong>
         </Text>
         <Text color={textColor} fontSize={'sm'}>
           •
         </Text>
         <GhostButton color={textColor}>
-          <BiLogoGithub fontSize={'xl'} />
+          <BiLogoGithub fontSize={'lg'} />
         </GhostButton>
         <GhostButton color={textColor}>
-          <BiLogoLinkedinSquare fontSize={'xl'} />
+          <BiLogoLinkedinSquare fontSize={'lg'} />
         </GhostButton>
         <GhostButton color={textColor}>
-          <BiLogoInstagram fontSize={'xl'} />
+          <BiLogoInstagram fontSize={'lg'} />
         </GhostButton>
         <GhostButton color={textColor}>
-          <BiLogoTwitter fontSize={'xl'} />
+          <BiLogoTwitter fontSize={'lg'} />
         </GhostButton>
       </Flex>
-      <Flex color={textColor} fontSize={'xs'} alignItems={'center'}>
+      <Flex
+        color={textColor}
+        fontSize={{ base: '10px', md: 'xs' }}
+        alignItems={'center'}
+      >
         Powered by
         <Image
           src={'/assets/logo-dw.svg'}

@@ -58,7 +58,7 @@ export function NavigationMobile({ isOpen, onClose }: ChildProps) {
               <Link to={'/follows'}>
                 <NavigationItem icon={<BiHeart />} text={'Follows'} />
               </Link>
-              <Link to={'/me'}>
+              <Link to={'/self'}>
                 <NavigationItem icon={<BiUser />} text={'Me'} />
               </Link>
 

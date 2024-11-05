@@ -11,6 +11,7 @@ import ProfileCard from '../../profiles/profileCard';
 import { SuggestionCard } from '../../suggestions/suggestionCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
+import { DevCard } from '../../devCards/devCard';
 
 interface ChildProps {
   isOpen: boolean;
@@ -47,6 +48,7 @@ export function UserPreferencesMobile({ isOpen, onClose }: ChildProps) {
           >
             <ProfileCard user={loggedUser!} />
             <SuggestionCard />
+            <DevCard />
           </Flex>
         </ModalBody>
       </ModalContent>
