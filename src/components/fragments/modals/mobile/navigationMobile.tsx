@@ -8,10 +8,13 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { BiHeart, BiLogOut, BiSolidHome, BiUser } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCustomColorModeValues } from '../../../../hooks/useCustomColorModeValues';
 import NavigationItem from '../../navigations/navigationItem';
 import SolidButton from '../../../elements/buttons/solidButton';
+import api from '../../../../networks/api';
+import { unsetLoggedUser } from '../../../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 interface ChildProps {
   isOpen: boolean;
@@ -19,13 +22,18 @@ interface ChildProps {
 }
 
 export function NavigationMobile({ isOpen, onClose }: ChildProps) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function onLogout() {
+    api.SET_TOKEN('');
+    dispatch(unsetLoggedUser());
+
+    navigate('/');
+  }
   const { baseDarkerColor } = useCustomColorModeValues();
 
   const menuRef = useRef<HTMLDivElement | null>(null);
-
-  async function onLogout() {
-    return;
-  }
 
   return (
     <>
