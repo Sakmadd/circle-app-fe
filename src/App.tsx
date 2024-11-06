@@ -37,7 +37,6 @@ function App() {
         }
 
         const loggedUser: UserType = await api.GET_LOGGED_USER();
-        console.log(loggedUser);
 
         if (loggedUser) {
           dispatch(setLoggedUser(loggedUser));
@@ -55,7 +54,7 @@ function App() {
   if (isPreloaded) {
     return (
       <>
-        <ColorModeHandler isLogin={!!loggedUser} />
+        <ColorModeHandler isLogin={!loggedUser} />
         <div className="app">
           <PreLoadPage />
         </div>
@@ -66,7 +65,7 @@ function App() {
   if (!loggedUser) {
     return (
       <>
-        <ColorModeHandler isLogin={!!loggedUser} />
+        <ColorModeHandler isLogin={!loggedUser} />
         <div className="app">
           <Routes>
             <Route path="/*" element={<LoginPage />} />
