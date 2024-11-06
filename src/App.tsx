@@ -30,7 +30,15 @@ function App() {
   useEffect(() => {
     async function initializeApp() {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          dispatch(unsetLoggedUser());
+          return;
+        }
+
         const loggedUser: UserType = await api.GET_LOGGED_USER();
+        console.log(loggedUser);
+
         if (loggedUser) {
           dispatch(setLoggedUser(loggedUser));
         }
@@ -82,7 +90,7 @@ function App() {
           <Route path="/self" element={<SelfProfilePage />} />
           <Route path="/follows" element={<FollowsPage />} />
         </Route>
-        <Route path="*" element={<div>404</div>} />
+        <Route path="*" element={<div>404 - Page Not Found</div>} />
       </Routes>
     </>
   );
