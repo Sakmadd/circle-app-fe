@@ -7,8 +7,10 @@ import { RootState } from '../../../redux/store';
 import { UserType } from '../../../types/types';
 import HeadingText from '../../elements/texts/headingText';
 import { AccountCard } from '../utils/accountCard';
+import { AccountCardSkeleton } from '../skeleton/accountCardSkeleton';
 
 export function SuggestionCard() {
+  const [isLoading, setLoading] = useState(true);
   const { borderLineColor, baseColor, textColor } = useCustomColorModeValues();
   const [users, setUsers] = useState<UserType[]>([]);
   const loggedUser: UserType | undefined = useSelector(
@@ -17,7 +19,6 @@ export function SuggestionCard() {
   useEffect(() => {
     async function getUsers() {
       const rawUsers: UserType[] = await api.GET_ALL_USERS();
-
       if (loggedUser) {
         const users = rawUsers.filter((user) => {
           return !user.isFollowed && user.id !== loggedUser.id;
@@ -25,12 +26,54 @@ export function SuggestionCard() {
 
         const randomUsers = users.sort(() => Math.random() - 0.5).splice(0, 3);
         setUsers(randomUsers);
+        setLoading(false);
       }
     }
 
     getUsers();
   }, [loggedUser]);
 
+  if (isLoading) {
+    return (
+      <>
+        <Flex
+          flexDirection={'column'}
+          border={'2px'}
+          borderColor={borderLineColor}
+          backgroundColor={baseColor}
+          borderRadius={'10px'}
+          padding={'5%'}
+          color={textColor}
+          gap={'.7rem'}
+        >
+          <HeadingText size="lg" textAlign={{ base: 'center', lg: 'left' }}>
+            Suggested For You
+          </HeadingText>
+          <Flex
+            paddingRight={'.5rem'}
+            flexDirection={'column'}
+            gap={'1rem'}
+            maxHeight={'200px'}
+            overflow={'auto'}
+            sx={{
+              '&::-webkit-scrollbar': {
+                width: '2px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'transparent',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: '#888',
+                borderRadius: '24px',
+              },
+            }}
+          >
+            <AccountCardSkeleton />
+          </Flex>
+        </Flex>
+      </>
+    );
+  }
   if (users.length) {
     return (
       <>
@@ -48,6 +91,7 @@ export function SuggestionCard() {
             Suggested For You
           </HeadingText>
           <Flex
+            paddingRight={'.5rem'}
             flexDirection={'column'}
             gap={'1rem'}
             maxHeight={'200px'}

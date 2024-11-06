@@ -23,15 +23,11 @@ export function useReplies(id: number) {
           if (!oldData) return null;
           return {
             ...oldData,
-            replies: [newReply, ...oldData.replies], // Tambahkan reply baru di awal array
+            replies: [newReply, ...oldData.replies],
             totalReplies: oldData.totalReplies + 1,
           };
         }
       );
-      toast(Promise.resolve(newReply), {
-        message: 'Successfully Replied!',
-        title: 'Reply Feed',
-      });
     },
   });
 
@@ -51,10 +47,6 @@ export function useReplies(id: number) {
           };
         }
       );
-      toast(Promise.resolve(deletedReply), {
-        message: 'Reply Successfully Deleted!',
-        title: 'Delete Reply',
-      });
     },
   });
 
@@ -75,11 +67,21 @@ export function useReplies(id: number) {
   }
 
   async function CREATE_REPLY(data: FormData): Promise<ReplyType> {
-    return await api.REPLY_FEED(data);
+    const promise: Promise<ReplyType> = api.REPLY_FEED(data);
+    toast(promise, {
+      message: 'Successfully Replied!',
+      title: 'Reply Feed',
+    });
+    return promise;
   }
 
   async function DELETE_REPLY(id: number): Promise<ReplyType> {
-    return await api.DELETE_REPLY(id);
+    const promise: Promise<ReplyType> = api.DELETE_REPLY(id);
+    toast(promise, {
+      message: 'Successfully Deleted Reply!',
+      title: 'Delete Reply',
+    });
+    return promise;
   }
 
   return {

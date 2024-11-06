@@ -7,15 +7,14 @@ import FeedList from '../fragments/feeds/item/feedList';
 
 function HomePage() {
   const [preparedFeeds, setPreparedFeeds] = useState<FeedType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { feeds, onPost } = useFeeds();
 
   useEffect(() => {
-    setPreparedFeeds(() => {
-      if (feeds) {
-        return feeds;
-      }
-      return [];
-    });
+    if (feeds) {
+      setPreparedFeeds(feeds);
+      setIsLoading(false);
+    }
   }, [feeds]);
 
   return (
@@ -26,7 +25,7 @@ function HomePage() {
         placeholder={"What's on your mind?"}
         imagePreviewId={'atHome'}
       />
-      <FeedList feeds={preparedFeeds} />
+      <FeedList feeds={preparedFeeds} isLoading={isLoading} />{' '}
     </MainContent>
   );
 }

@@ -6,12 +6,14 @@ interface ProfileCardHeaderProps {
   profileHandler?: () => void;
   bgImg: string | undefined;
   profileImg: string | undefined;
+  userId?: string;
 }
 
 export function ProfileCardHeader({
   profileHandler,
   bgImg,
   profileImg,
+  userId,
 }: ProfileCardHeaderProps) {
   const location = useLocation();
   const { textColor, baseColor } = useCustomColorModeValues();
@@ -27,7 +29,11 @@ export function ProfileCardHeader({
       >
         <Box
           overflow={'hidden'}
-          borderRadius={location.pathname === '/self' ? '0px' : 'xl'}
+          borderRadius={
+            ['/self', `/user/${userId}`].includes(location.pathname)
+              ? '0px'
+              : 'xl'
+          }
         >
           <Image
             src={bgImg}

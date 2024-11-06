@@ -1,21 +1,23 @@
 import { Box, Flex, Spacer, useDisclosure } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { useCustomColorModeValues } from '../../hooks/useCustomColorModeValues';
+import api from '../../networks/api';
 import { RootState } from '../../redux/store';
+import { UserType } from '../../types/types';
 import GhostButton from '../elements/buttons/ghostButton';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
 import FeedList from '../fragments/feeds/item/feedList';
 import { EditProfileModal } from '../fragments/modals/editProfileModal';
 import ProfileCard from '../fragments/profiles/profileCard';
+import { ProfileSkeleton } from '../fragments/skeleton/profileSkeleton';
 import BrandTabs from '../fragments/utils/BrandTabs';
 import { MediaCollections } from './mediaCollections';
-import { useEffect, useState } from 'react';
-import { UserType } from '../../types/types';
-import api from '../../networks/api';
 
 export function SelfProfilePage() {
+  const [loading, isLoading] = useState(true);
   const { textColor } = useCustomColorModeValues();
   const {
     isOpen: isEditProfileModalOpen,
@@ -34,9 +36,17 @@ export function SelfProfilePage() {
       console.log(user);
 
       setUser(user);
+      isLoading(false);
     }
     GET_USER();
   }, [loggedUser]);
+  if (loading) {
+    return (
+      <MainContent>
+        <ProfileSkeleton />
+      </MainContent>
+    );
+  }
   if (user) {
     return (
       <>

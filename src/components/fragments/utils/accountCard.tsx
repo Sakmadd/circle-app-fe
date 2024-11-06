@@ -1,4 +1,4 @@
-import { Avatar, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -91,7 +91,9 @@ export function AccountCard({
           {bio && !noBio && <Text fontSize={'10px'}>{bio}</Text>}
         </Flex>
         {isLoading ? (
-          <HollowButton />
+          <HollowButton>
+            <Spinner />
+          </HollowButton>
         ) : follows ? (
           <HollowButton text={'Unfollow'} onClick={onFollow} dark />
         ) : (

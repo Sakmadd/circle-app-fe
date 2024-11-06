@@ -46,6 +46,7 @@ function ProfileCard({ profileHandler, user }: ProfileCardProps) {
         color={textColor}
       >
         <ProfileCardHeader
+          userId={id}
           bgImg={banner}
           profileImg={avatar}
           profileHandler={profileHandler}

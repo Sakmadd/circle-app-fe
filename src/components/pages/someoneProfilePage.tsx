@@ -10,60 +10,78 @@ import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
 import FeedList from '../fragments/feeds/item/feedList';
 import ProfileCard from '../fragments/profiles/profileCard';
+import { ProfileSkeleton } from '../fragments/skeleton/profileSkeleton';
 import BrandTabs from '../fragments/utils/BrandTabs';
 import { MediaCollections } from './mediaCollections';
 
 export function SomeoneProfilePage() {
+  const [user, setUser] = useState<UserType | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isNotFound, setIsNotFound] = useState(false);
   const { textColor } = useCustomColorModeValues();
   const { id }: Readonly<Params<string>> = useParams();
   const navigate = useNavigate();
-  const loggedUser = useSelector(
-    (states: RootState) => states.loggedUser.value
-  );
-
-  const [user, setUser] = useState<UserType | null>(null);
+  const loggedUser = useSelector((state: RootState) => state.loggedUser.value);
 
   useEffect(() => {
-    async function GET_USER() {
-      const user: UserType = await api.GET_SINGLE_USER(id!);
+    // Mengatur ulang loading saat URL berganti
+    setIsLoading(true);
+    setIsNotFound(false);
 
-      if (loggedUser) {
-        if (loggedUser.id === user.id) {
-          navigate('/self');
+    async function fetchUser() {
+      try {
+        const fetchedUser: UserType = await api.GET_SINGLE_USER(id!);
+        if (!fetchedUser) {
+          setIsNotFound(true);
+          return;
         }
+        if (loggedUser?.id === fetchedUser.id) {
+          navigate('/self');
+          return;
+        }
+        setUser(fetchedUser);
+      } catch {
+        setIsNotFound(true);
+      } finally {
+        setIsLoading(false);
       }
-
-      setUser(user);
     }
+    fetchUser();
+  }, [id, loggedUser, navigate]);
 
-    setUser(null);
-    GET_USER();
-  }, [loggedUser, id, navigate]);
-  if (user) {
+  if (isLoading) {
     return (
       <MainContent>
-        <LeftArrowButton href="/" text={user.name} />
-        <ProfileCard user={user} />
-        <Box paddingTop={'1rem'}>
-          <BrandTabs
-            leftTitle={'Posts'}
-            leftContent={<FeedList feeds={user.feeds} />}
-            rightTitle={'Media'}
-            rightContent={<MediaCollections feeds={user.feeds} />}
-          ></BrandTabs>
-        </Box>
+        <ProfileSkeleton />
+      </MainContent>
+    );
+  }
+
+  if (isNotFound || !user) {
+    return (
+      <MainContent>
+        <LeftArrowButton href="/" text="Not Found" />
+        <Flex justifyContent="center" margin="50px">
+          <Text fontWeight="bold" fontSize="2xl" color={textColor}>
+            Sorry, We Couldn't Find That User
+          </Text>
+        </Flex>
       </MainContent>
     );
   }
 
   return (
     <MainContent>
-      <LeftArrowButton href="/" text={'Not Found'} />
-      <Flex justifyContent={'center'} margin={'50px'}>
-        <Text fontWeight={'bold'} fontSize={'2xl'} color={textColor}>
-          Sorry, We Couldn't Find That User
-        </Text>
-      </Flex>
+      <LeftArrowButton href="/" text={user.name} />
+      <ProfileCard user={user} />
+      <Box paddingTop="1rem">
+        <BrandTabs
+          leftTitle="Posts"
+          leftContent={<FeedList feeds={user.feeds} />}
+          rightTitle="Media"
+          rightContent={<MediaCollections feeds={user.feeds} />}
+        />
+      </Box>
     </MainContent>
   );
 }

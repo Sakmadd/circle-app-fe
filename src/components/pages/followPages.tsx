@@ -1,3 +1,4 @@
+import { Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../networks/api';
@@ -5,6 +6,7 @@ import { RootState } from '../../redux/store';
 import { UserType } from '../../types/types';
 import { LeftArrowButton } from '../elements/buttons/leftArrowButton';
 import { MainContent } from '../fragments/bars/mainContent';
+import { AccountCardSkeleton } from '../fragments/skeleton/accountCardSkeleton';
 import BrandTabs from '../fragments/utils/BrandTabs';
 import AccountListCard from '../fragments/utils/acountListCard';
 
@@ -48,9 +50,17 @@ function FollowsPage() {
       {isLoading ? (
         <BrandTabs
           leftTitle={'Followers'}
-          leftContent={<>loading</>}
+          leftContent={
+            <Flex flexDirection={'column'} padding={'1rem'} gap={'1rem'}>
+              <AccountCardSkeleton />
+            </Flex>
+          }
           rightTitle={'Following'}
-          rightContent={<>loading</>}
+          rightContent={
+            <Flex flexDirection={'column'} padding={'1rem'} gap={'1rem'}>
+              <AccountCardSkeleton />
+            </Flex>
+          }
         />
       ) : (
         <BrandTabs

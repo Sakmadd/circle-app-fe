@@ -38,8 +38,6 @@ function App() {
         }
 
         const loggedUser: UserType = await api.GET_LOGGED_USER();
-        console.log(loggedUser);
-
         if (loggedUser) {
           dispatch(setLoggedUser(loggedUser));
         }
@@ -51,7 +49,7 @@ function App() {
     }
 
     initializeApp();
-  }, [dispatch, loggedUser]);
+  }, [dispatch]);
 
   if (isPreloaded) {
     return (

@@ -3,13 +3,19 @@ import { Box } from '@chakra-ui/react';
 import { FeedType } from '../../../../types/types';
 import { EmptyMessage } from '../../utils/emptyMessage';
 import { FeedItem } from './feedItem';
+import { FeedListSkeleton } from '../../skeleton/feedSkeleton';
 
 interface FeedListProps {
   feeds: FeedType[];
   noLink?: boolean;
+  isLoading?: boolean;
 }
 
-export default function FeedList({ feeds, noLink }: FeedListProps) {
+export default function FeedList({ feeds, noLink, isLoading }: FeedListProps) {
+  if (isLoading) {
+    return <FeedListSkeleton />;
+  }
+
   if (feeds.length) {
     return (
       <Box>
@@ -28,5 +34,5 @@ export default function FeedList({ feeds, noLink }: FeedListProps) {
     );
   }
 
-  return <EmptyMessage header={'No feed has been posted at this moment.'} />;
+  return <EmptyMessage header="No feed has been posted at this moment." />;
 }
