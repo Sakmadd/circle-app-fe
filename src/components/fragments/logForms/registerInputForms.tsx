@@ -32,8 +32,8 @@ export function RegisterInputForms({ onSubmit }: RegisterInputFormsProps) {
     >
       <Box
         padding={'10%'}
-        border={{ base: 'none', md: '1px solid grey' }}
         borderColor={borderLineColor}
+        borderWidth={{ base: 'none', md: '2px' }}
         bg={baseColor}
         display={'flex'}
         flexDirection={'column'}
@@ -96,8 +96,8 @@ export function RegisterInputForms({ onSubmit }: RegisterInputFormsProps) {
       <Box
         justifyContent={'center'}
         padding={'5%'}
-        border={{ base: 'none', md: '1px solid grey' }}
         borderColor={borderLineColor}
+        borderWidth={{ base: 'none', md: '2px' }}
         bg={baseColor}
         display={'flex'}
         flexDirection={'row'}

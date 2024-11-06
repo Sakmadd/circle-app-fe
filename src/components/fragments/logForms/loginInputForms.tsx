@@ -32,9 +32,9 @@ export function LoginInputForms({ onSubmit }: LoginInputFormsProps) {
     >
       <Box
         padding={'10%'}
-        border={{ base: 'none', md: '1px solid grey' }}
         borderColor={borderLineColor}
-        bg={baseColor}
+        borderWidth={{ base: 'none', md: '2px' }}
+        bg={'transparent'}
         display={'flex'}
         flexDirection={'column'}
         gap={3}
@@ -84,8 +84,8 @@ export function LoginInputForms({ onSubmit }: LoginInputFormsProps) {
       <Box
         justifyContent={'center'}
         padding={'5%'}
-        border={{ base: 'none', md: '1px solid grey' }}
         borderColor={borderLineColor}
+        borderWidth={{ base: 'none', md: '2px' }}
         bg={baseColor}
         display={'flex'}
         flexDirection={'row'}

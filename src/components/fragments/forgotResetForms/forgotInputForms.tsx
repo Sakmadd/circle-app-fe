@@ -30,8 +30,8 @@ export function ForgotInputForms({ onSubmit }: forgotInputFormsProps) {
       >
         <Box
           padding={'10%'}
-          border={{ base: 'none', md: '1px solid ' }}
           borderColor={borderLineColor}
+          borderWidth={{ base: 'none', md: '2px' }}
           bg={baseColor}
           display={'flex'}
           flexDirection={'column'}
@@ -70,8 +70,8 @@ export function ForgotInputForms({ onSubmit }: forgotInputFormsProps) {
         <Box
           justifyContent={'center'}
           padding={'5%'}
-          border={{ base: 'none', md: '1px solid ' }}
           borderColor={borderLineColor}
+          borderWidth={{ base: 'none', md: '2px' }}
           bg={baseColor}
           display={'flex'}
           flexDirection={'row'}
