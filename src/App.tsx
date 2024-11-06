@@ -31,12 +31,14 @@ function App() {
     async function initializeApp() {
       try {
         const token = localStorage.getItem('token');
+
         if (!token) {
           dispatch(unsetLoggedUser());
           return;
         }
 
         const loggedUser: UserType = await api.GET_LOGGED_USER();
+        console.log(loggedUser);
 
         if (loggedUser) {
           dispatch(setLoggedUser(loggedUser));
@@ -49,7 +51,7 @@ function App() {
     }
 
     initializeApp();
-  }, [dispatch]);
+  }, [dispatch, loggedUser]);
 
   if (isPreloaded) {
     return (
