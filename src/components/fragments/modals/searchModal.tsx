@@ -64,7 +64,7 @@ export function SearchModal({
                 height={'50px'}
                 fontSize={{ base: '15px', md: '17px' }}
                 type="tel"
-                placeholder=" Search Something"
+                placeholder=" Search Someone"
                 focusBorderColor="grey"
                 backgroundColor={searchBarColor}
               />
