@@ -64,7 +64,7 @@ export function ChangeAvatarModal({
         if (blob) {
           const buffer = await blobToBase64(blob);
 
-          await api.EDIT_USER({
+          await api.EDIT_USER_IMAGE({
             ...loggedUser!,
             bio: loggedUser!.bio ?? '',
             avatar: buffer,

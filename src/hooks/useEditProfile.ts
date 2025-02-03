@@ -18,7 +18,7 @@ export function useEditProfile() {
 
   async function onPost(data: EditUserProfileType) {
     try {
-      const updatedUser = await api.EDIT_USER({
+      const updatedUser = await api.EDIT_USER_TEXT({
         ...data,
         id: loggedUser!.id,
         filterContent: loggedUser!.filterContent,

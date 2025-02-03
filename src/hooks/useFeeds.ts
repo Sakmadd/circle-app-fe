@@ -56,7 +56,11 @@ export function useFeeds(params: useFeedsParams = {}) {
   }
 
   function onDelete(id: number): void {
-    deleteFeed.mutate(id);
+    if (confirm('apakah kamu yakin ingin menghapus feed ini?') == true) {
+      deleteFeed.mutate(id);
+    } else {
+      return;
+    }
   }
 
   async function CREATE_FEED(data: FormData): Promise<string> {

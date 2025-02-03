@@ -130,11 +130,33 @@ class API {
       throw error;
     }
   }
-  async EDIT_USER(data: EditUserDataType): Promise<UserType> {
+  async EDIT_USER_TEXT(data: EditUserDataType): Promise<UserType> {
     try {
-      const response = await axios.patch(`${CONFIGS.API_URL}/users`, data, {
-        headers: { Authorization: this.GET_TOKEN() },
-      });
+      const response = await axios.patch(
+        `${CONFIGS.API_URL}/users/text`,
+        data,
+        {
+          headers: { Authorization: this.GET_TOKEN() },
+        }
+      );
+      return response.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  async EDIT_USER_IMAGE(data: EditUserDataType): Promise<UserType> {
+    try {
+      const response = await axios.patch(
+        `${CONFIGS.API_URL}/users/image`,
+        data,
+        {
+          headers: { Authorization: this.GET_TOKEN() },
+        }
+      );
       return response.data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
