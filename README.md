@@ -1,3 +1,7 @@
+ini adalah repo untuk frontend.
+jika penasaran dengan backendnya bisa dilihat di
+https://github.com/Sakmadd/circle-app-be
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
